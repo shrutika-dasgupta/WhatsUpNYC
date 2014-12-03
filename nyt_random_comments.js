@@ -48,25 +48,40 @@ $(function() {
 });
 
 function get_random_comments()
-{
+{ 
   console.log("random button clicked");
+
+  /*var today = new Date();
+  var dd = today.getDate();
+  if(dd < 10)
+    dd = "0".concat(dd.toString());
+  var mm = today.getMonth()+1; //January is 0!
+  if(mm < 10)
+    mm = "0".concat(mm.toString());
+  var yyyy = today.getFullYear();
+
+  console.log("today's date: "+date);
+  console.log('http://api.nytimes.com/svc/search/v2/articlesearch.jsonp?begin_date='+ date +'&sort=newest&api-key=f02694c07ce3d1b319e884d95e82a2b9:13:70159998' );*/
+
   $.ajax({
     type:'GET',
-    url: 'http://api.nytimes.com/svc/community/v2/comments/random.jsonp?api-key=71b688b6fcaffe9ac59413b1d7de1a0c:1:70151851',
+    // url: 'http://api.nytimes.com/svc/community/v2/comments/random.jsonp?api-key=71b688b6fcaffe9ac59413b1d7de1a0c:1:70151851',
+    url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp?ll=40.756146%2C-73.99021&radius=10000&limit=20&api-key=f02694c07ce3d1b319e884d95e82a2b9:13:70159998',
     cache: false,
     async: false,
     dataType: 'jsonp',
     success: function(data)
-    {
-      var objects = data.results.comments
+    { 
+      console.log(data);
+      var objects = data.results;
       //random_comments;
       for(var i = 0; i < objects.length; i++)
       {
 
         //console.log();
         var random_comment = {};
-        random_comment['comment'] = objects[i]['commentBody'];
-        random_comment['name'] = objects[i]['display_name'];
+        random_comment['comment'] = objects[i]['web_description'];
+        random_comment['name'] = objects[i]['event_name'];
         var dateTime = new Date(objects[i]['approveDate']*1000);
         var com_day = dateTime.getDate();
         var com_month = dateTime.getMonth();
@@ -77,11 +92,11 @@ function get_random_comments()
         random_comment['commentTitle'] = objects[i]['commentTitle'];
         random_comment['location'] = objects[i]['location'];
         random_comment['rCount'] = objects[i]['recommendationCount'];
-        var userComments = [];
+        /*var userComments = [];
         userComments = objects[i]['userComments'].split('/');
         var user_id_dot = [];
         user_id_dot = userComments[7].split(".");
-        random_comment['userId'] = user_id_dot[0];
+        random_comment['userId'] = user_id_dot[0];*/
 
         var corgi_feed_well = document.createElement("div");
         corgi_feed_well.id = "corgi_feed_well/"+i;
