@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+ <!--  <link rel="shortcut icon" href="assets/img/favicon.png"> -->
+
+  <title>Commentator</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/jquery-ui.css" rel="stylesheet" type="text/css" >
+  <link href="css/elusive-webfont.css" rel="stylesheet">
+  <link href='css/corgi.css' rel='stylesheet' type='text/css'>
+  <link href='css/star-rating.min.css' media = 'all' rel='stylesheet' type='text/css'>
+  <link href='css/star-rating.css' rel='stylesheet' type='text/css'>
+
+  <script src="js/jquery-1.10.2.js"></script>
+  <script src="js/jquery-1.11.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/corgi.js" type="text/javascript"></script>
+  <script src="js/corgi.js" type="text/javascript"></script>
+  <script src= "js/star-rating.min.js" type="text/javascript"></script>
+  <script src= "js/star-rating.js" type="text/javascript"></script>
+  <script src= "nyt_random_comments.js" type="text/javascript"></script>
+  <script src= "nyt_specific_comments.js" type="text/javascript"></script>
+
+
+</head>
+
+<body class ="custom-body">
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        </button>
+        <a class="navbar-brand" href="index.html">Commentator</a>
+      </div>
+      
+    </div>
+  </div>
+  <div id="header" class="custom-header">
+    <div id= "wrap-sections">
+      <div id="left-section">
+        <div class="container">
+          <h1>Commentator</h1>
+          <div class="row">
+            <div class="col-lg-12 form-ui">
+              
+              <h2 class="subtitle">You are the judge</h2>
+              <h2 class="subtitle2" id= "input_validity"> </h2>
+              <form method= 'post' class="form-inline" role="form" action= "">
+                <div class="form-group">
+                
+                  <table class = "table">
+                    <tr><td><button id= "search-random" type="button" class="btn btn-lg btn-theme" title="Search for random comments from the New York Times">search random comments</button></td></tr>
+                    <tr ><td><select id= "option-choice" name = "dropdown-options" class="form-control input-lg" placeholder="choose the option to select" title="Choose how you would like to seach for the commentators">
+                      <option value="" disabled selected>choose how to search</option>
+                      <option value="by-name">by user id</option>
+                      <option value="by-article">by article</option>
+                      <option value="by-date">by date</option>
+                    </select></td></tr>
+                    <tr><td>
+                      <div class ="choose-input" id="selection-result">
+                        <div class = "type-by-name">
+                            <input id ="input-by-name" type="text" class="form-control input-lg" name="input_box" title="Enter the value to search for">
+                        </div>
+                        <div class = "type-by-article">
+                            <input id ="input-by-article" type="text" class="form-control input-lg" name="input_box" title="Enter the value to search for">
+                        </div>
+                        <div class = "type-by-date">
+                            <input id ="input-by-date" type="text" class="form-control input-lg" name="input_box" title="Enter the value to search for">
+                        </div>
+                      </div>
+                    </td></tr>
+                    <tr><td><button id="search-query" type="button" class="btn btn-lg btn-theme" title="Click on search to fire through the web!" onclick="">search</button></td></tr>
+
+                   <!--  <tr><td><button id="commentator-stats" type="button" class="btn btn-lg btn-theme " title="Click on search to fire through the web!" onclick="">get commentor statistics</button></td></tr> -->
+                  </table>
+                </div>
+              </form>        
+            </div> 
+          </div>
+        </div>
+      </div>
+      <div id="right-section">
+        <div class="container">
+            <div class="row">
+              <div id = "right-append-comments">
+              </div>
+            </div>
+          </div>
+        </div>
+      <div style="clear:both;"></div>
+    </div>
+  </div>
+    <div class="clearfix"></div>
+<div id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-lg-offset-3">
+          <p class="copyright">Copyright &copy; 2014 -Shrutika</p>
+      </div>
+    </div>    
+  </div>  
+</div>
+
+<div class="pnt-on-image-wrapper" style="display: none;"><div class="pnt-on-image"><div class="pnticn pnticn-logo pnticnlarge"></div><div class="pnt-onimg-text"></div></div></div></body></html>
+
