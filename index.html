@@ -30,7 +30,18 @@
   <script src= "js/star-rating.js" type="text/javascript"></script>
   <script src= "nyt_random_comments.js" type="text/javascript"></script>
   <script src= "nyt_specific_comments.js" type="text/javascript"></script>
+  <script src= "js/store.min.js" type="text/javascript"></script>
+  <script src= "js/store+json2.min.js" type="text/javascript"></script>
 
+  <script>
+    init()
+    function init() {
+        if (!store.enabled) {
+            alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.');
+            return;
+        }
+    }
+  </script>
 
 </head>
 
@@ -77,6 +88,7 @@
                         <div class = "type-by-date">
                             <input id ="input-by-date" type="text" class="form-control input-lg" name="input_box" title="Enter the value to search for">
                         </div>
+                        
                       </div>
                     </td></tr>
                     <tr><td><button id="search-query" type="button" class="btn btn-lg btn-theme" title="Click on search to fire through the web!" onclick="">search</button></td></tr>
