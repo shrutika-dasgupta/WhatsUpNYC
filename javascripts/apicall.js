@@ -7,11 +7,6 @@ function ranComments(){
 	 
 
 
-  /*$(document).ajaxStop(function () {
-      // 0 === $.active
-  });*/
-
-
   var jqXHR=$.ajax({
     type: "POST",  
     url: "http://api.nytimes.com/svc/events/v2/listings.jsonp?ll=40.756146%2C-73.99021&radius=10000&limit=20&api-key=f02694c07ce3d1b319e884d95e82a2b9:13:70159998",
@@ -336,28 +331,27 @@ $("#selectType").change(function() {
 
 
 function searchComments(){
+
       $("#usernameError").hide();
       $("#nofield").hide();
       $("#noresults").hide();
 
       console.log("inside searchcomment");
 
-      if (document.getElementById("selectType").value == 'none') {
-
-        $("#nofield").show();
-
+      if (document.getElementById("datepicker1").value == '' && document.getElementById("text").value == '') {
+          $("#usernameError").show();
+          return;
       }
-     if (document.getElementById("selectType").value == 'article') {
 
-      if(document.getElementById("articleName").value == ''){
-                $("#usernameError").show();
+     if(document.getElementById("datepicker1").value != '')
+     var comDate = document.getElementById("datepicker1").value;
+     comDateList = comDate.split("/");
+     newComDate = comDateList[2]+comDateList[0]+comDateList[1];
+     console.log("date is "+ newComDate);         
 
-
-      }      
-
-      artUrl = encodeURI(document.getElementById("articleName").value);
+    artUrl = encodeURI(document.getElementById("articleName").value);
         
-      var jqXHR=$.ajax({
+    var jqXHR=$.ajax({
     type: "POST",  
     // url: "http://api.nytimes.com/svc/community/v2/comments/random.jsonp?api-key=c1e1743caa6b5ead9bd761b809f4b2a6:5:70159998",
     url: "http://api.nytimes.com/svc/community/v2/comments/url/exact-match.jsonp?url="+ artUrl +"&api-key=c1e1743caa6b5ead9bd761b809f4b2a6:5:70159998",
