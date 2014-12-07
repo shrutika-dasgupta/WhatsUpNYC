@@ -1,127 +1,260 @@
-<!DOCTYPE html>
+    <!DOCTYPE HTML>
+    <html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <title>Commentator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Styles -->
+    <link href="webContent/css/bootstrap.css" rel="stylesheet">
+    <link href="webContent/css/style.css" rel="stylesheet">
+    <link href="webContent/css/style-date.css" rel="stylesheet">
+    <link href="webContent/css/jquery-ui.css" rel="stylesheet">
 
-<html lang="en">
-<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
- <!--  <link rel="shortcut icon" href="assets/img/favicon.png"> -->
-
-  <title>Commentator</title>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
-
-  <link href="css/bootstrap.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
-  <link href="css/jquery-ui.css" rel="stylesheet" type="text/css" >
-  <link href="css/elusive-webfont.css" rel="stylesheet">
-  <link href='css/corgi.css' rel='stylesheet' type='text/css'>
-  <link href='css/star-rating.min.css' media = 'all' rel='stylesheet' type='text/css'>
-  <link href='css/star-rating.css' rel='stylesheet' type='text/css'>
-
-  <script src="js/jquery-1.10.2.js"></script>
-  <script src="js/jquery-1.11.1.min.js"></script>
-  <script src="js/jquery-ui.js"></script>
-  <script src="js/corgi.js" type="text/javascript"></script>
-  <script src="js/corgi.js" type="text/javascript"></script>
-  <script src= "js/star-rating.min.js" type="text/javascript"></script>
-  <script src= "js/star-rating.js" type="text/javascript"></script>
-  <script src= "nyt_random_comments.js" type="text/javascript"></script>
-  <script src= "nyt_specific_comments.js" type="text/javascript"></script>
-  <script src= "js/store.min.js" type="text/javascript"></script>
-  <script src= "js/store+json2.min.js" type="text/javascript"></script>
-
-  <script>
-    init()
-    function init() {
-        if (!store.enabled) {
-            alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.');
-            return;
-        }
+    <link rel='stylesheet' id='prettyphoto-css'  href="webContent/css/prettyPhoto.css" type='text/css' media='all'>
+    <link href="webContent/css/fontello.css" type="text/css" rel="stylesheet">
+    <!--[if lt IE 7]>
+            <link href="css/fontello-ie7.css" type="text/css" rel="stylesheet">  
+        <![endif]-->
+    <!-- Google Web fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Quattrocento:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Patua+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <style>
+    body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
     }
+    </style>
+    <link href="webContent/css/bootstrap-responsive.css" rel="stylesheet">
+    
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="webContent/img/favicon.ico">
+    <!-- JQuery -->
+    <script type="text/javascript" src="webContent/js/jquery.js"></script>
+    <!-- Load ScrollTo -->
+    <script type="text/javascript" src="webContent/js/jquery.scrollTo-1.4.2-min.js"></script>
+    <!-- Load LocalScroll -->
+    <script type="text/javascript" src="webContent/js/jquery.localscroll-1.2.7-min.js"></script>
+    <!-- prettyPhoto Initialization -->
+    <script type="text/javascript" charset="utf-8">
+          $(document).ready(function(){
+            $("a[rel^='prettyPhoto']").prettyPhoto();
+          });
+    </script>
+    
+    <script type="text/javascript" src="webContent/js/jquery-1.7.1.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="webContent/js/jquery-ui.css">
+    <script src="webContent/js/jquery-1.10.2.js"></script>
+    <script src="webContent/js/jquery-ui.js"></script>
+    <script>
+    $(function() {
+    $( "#datepicker1" ).datepicker();
+    });
   </script>
 
-</head>
+    
+    
+  <script type="text/javascript" src="javascripts/apicall.js"></script>
+  <script type="text/javascript">
+  
+  window.onload= validation();
 
-<body class ="custom-body">
-  <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        </button>
-        <a class="navbar-brand" href="index.html">Commentator</a>
-      </div>
-      
-    </div>
-  </div>
-  <div id="header" class="custom-header">
-    <div id= "wrap-sections">
-      <div id="left-section">
-        <div class="container">
-          <h1>Commentator</h1>
-          <div class="row">
-            <div class="col-lg-12 form-ui">
-              
-              <h2 class="subtitle">You are the judge</h2>
-              <h2 class="subtitle2" id= "input_validity"> </h2>
-              <form method= 'post' class="form-inline" role="form" action= "">
-                <div class="form-group">
+  function validation() {
+
+   $(document).ready(function(){
+        $("#articleName").hide();
+        $("#commenterName").hide();
+        $("#datepicker1").hide();      
+    });  
+
+  if (window.location.href.indexOf("invalidusername") > -1) {
+        
+        $(document).ready(function(){
+        $("#usernameError").show();
+        $("#nofield").hide();
+        $("#noresults").hide();
+        });
+
+ 
+  }else if (window.location.href.indexOf("nofield") > -1) {
+    
+        
+        $(document).ready(function(){
+        $("#nofield").show();
+        $("#usernameError").hide();
+        $("#noresults").hide();
+        
+        });
+  
+  }else if (window.location.href.indexOf("noresults") > -1) {
+        
+        $(document).ready(function(){
+        $("#noresults").show();
+        $("#nofield").hide();
+        $("#usernameError").hide();
+        
+        });
+  }
+
+  else{
+        $(document).ready(function(){
+        $("#usernameError").hide();
+        $("#nofield").hide();
+        $("#noresults").hide();
+        });
+  }
+
+
+}
+
+  
+  </script>
+
+    </head>
+    <body>
+    <!--******************** NAVBAR ********************-->
+    <div class="navbar-wrapper">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a>
+            <h1 class="brand"><a href="#top">Commentator</a></h1>
+            <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
+            <nav class="pull-right nav-collapse collapse">
+              <ul id="menu-main" class="nav">
                 
-                  <table class = "table">
-                    <tr><td><button id= "search-random" type="button" class="btn btn-lg btn-theme" title="Search for random comments from the New York Times">search random comments</button></td></tr>
-                    <tr ><td><select id= "option-choice" name = "dropdown-options" class="form-control input-lg" placeholder="choose the option to select" title="Choose how you would like to seach for the commentators">
-                      <option value="" disabled selected>choose how to search</option>
-                      <option value="by-name">by user id</option>
-                      <option value="by-article">by article</option>
-                      <option value="by-date">by date</option>
-                    </select></td></tr>
-                    <tr><td>
-                      <div class ="choose-input" id="selection-result">
-                        <div class = "type-by-name">
-                            <input id ="input-by-name" type="text" class="form-control input-lg" name="input_box" title="Enter the value to search for">
-                        </div>
-                        <div class = "type-by-article">
-                            <input id ="input-by-article" type="text" class="form-control input-lg" name="input_box" title="Enter the value to search for">
-                        </div>
-                        <div class = "type-by-date">
-                            <input id ="input-by-date" type="text" class="form-control input-lg" name="input_box" title="Enter the value to search for">
-                        </div>
-                        
-                      </div>
-                    </td></tr>
-                    <tr><td><button id="search-query" type="button" class="btn btn-lg btn-theme" title="Click on search to fire through the web!" onclick="">search</button></td></tr>
-
-                   <!--  <tr><td><button id="commentator-stats" type="button" class="btn btn-lg btn-theme " title="Click on search to fire through the web!" onclick="">get commentor statistics</button></td></tr> -->
-                  </table>
-                </div>
-              </form>        
-            </div> 
+              </ul>
+            </nav>
           </div>
+          <!-- /.container -->
         </div>
+        <!-- /.navbar-inner -->
       </div>
-      <div id="right-section">
-        <div class="container">
-            <div class="row">
-              <div id = "right-append-comments">
+      <!-- /.navbar -->
+    </div>
+    <!-- /.navbar-wrapper -->
+    <div id="top"></div>
+    <!-- ******************** HeaderWrap ********************-->
+    <div id="headerwrap">
+      <header class="clearfix">
+        <h1><span>Search comments</span></h1>
+        <div class="container" style="position: relative;">
+          <div id="divfix" title="Average comment rating for users">
+            Comment Ratings
+          </div>
+
+
+
+          <div class="row">
+            <div class="span12">
+              <!--<form method="POST" action="commentList.html" name="random" id="random">-->
+              <h2 style="margin-left:-6%;">Random comments</h2>
+              <!-- <input type="submit" value="Generate" class="cform-submit" onclick="ranComments()">   -->
+              <input type = "button" value="Generate" onclick="ranComments()" class="cform-submit" 
+              style="margin-left:39%;" title="click here to generate random comments">
+              <!-- </form> -->
+              <h2 style="margin-left:-6%;">Or</h2>
+              <h2 style="margin-left:-6%;">Select a field to search comments</h2>
+              
+              <h2 id="usernameError" style="color: gold; margin-left:-6%;" hidden="true">Please Enter Value</h2>
+              <h2 id="nofield" style="color: gold; margin-left:-6%;" hidden="true">Please select one field</h2>
+             
+              <h2 id="noresults" style="color: gold; margin-left:-6%;" hidden="true">No results found</h2>
+              <div class = "row">
+              <select id ="selectType" style="width: 290px; font-size: 22px; height: 60px; margin-left:-6%; font-family: 'Open Sans', sans serif;" title="select the type of field for search">
+              <option value="none">Select here</option>  
+              <option value="article">Article URL</option>
+              <option value="commenter">Commenter user id</option>
+              <option value="commentDate">Comment date</option>
+              </select>
               </div>
+              <div class="row">&nbsp</div>
+              <input type="text" id="articleName" name="keywords" placeholder="Article URL" class="cform-text" size="20" title="your email" style="margin-left:-6%;">
+              
+              <input type="text" id="commenterName" name="username" placeholder="Commenter user id" class="cform-text" size="20" title="username" style = "width:290px; margin-left:-6%;">
+              
+              
+              <input type="text" id="datepicker1" name="uploadedsince" placeholder="Commented on" class="cform-text" size="20" style = "width:290px; margin-left:-6%;">
+              <!--
+              <input type="text" id="datepicker2" name="uploadeduntil" placeholder="Uploaded Until" class="cform-text" size="20" style = "width:290px;">
+              -->
             </div>
           </div>
-        </div>
-      <div style="clear:both;"></div>
-    </div>
-  </div>
-    <div class="clearfix"></div>
-<div id="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6 col-lg-offset-3">
-          <p class="copyright">Copyright &copy; 2014 -Shrutika</p>
-      </div>
-    </div>    
-  </div>  
+          <div class="row" id="searchButton">
+          <br>
+          <div class="row">&nbsp</div>
+          <input type = "button" value="Search" onclick="searchComments()" class="cform-submit" id="searchButton"
+              style="margin-left:41.7%;" title="click here to search">
+          </div>
+
+<!-- <div style="margin: 10px">
+<div class="star-ctr">
+  <ul>
+    <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+    <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+    <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+    <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+    <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
+  </ul>
 </div>
+</div> -->
 
-<div class="pnt-on-image-wrapper" style="display: none;"><div class="pnt-on-image"><div class="pnticn pnticn-logo pnticnlarge"></div><div class="pnt-onimg-text"></div></div></div></body></html>
 
+
+
+
+           <div id="box">
+        <p/>
+        <div id="addrwhere"></div>
+        <div id="where" style="width: 1060px;"></div>
+        
+        <p/>
+
+    </div>
+          </form> 
+        </div>
+      </header>
+    </div>
+
+
+   
+    <!--******************** Feature ********************-->
+    
+    <!--******************** Portfolio Section ********************-->
+    
+    <hr>
+    <!--******************** Services Section ********************-->
+       <hr>
+    <!--******************** Testimonials Section ********************-->
+    
+    <!--******************** News Section ********************-->
+    
+    <!-- Loading the javaScript at the end of the page -->
+    <script type="text/javascript" src="webContent/js/bootstrap.js"></script>
+    <script type="text/javascript" src="webContent/js/jquery.prettyPhoto.js"></script>
+    <script type="text/javascript" src="webContent/js/site.js"></script>
+    
+    
+    <!--ANALYTICS CODE-->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-29231762-1']);
+    _gaq.push(['_setDomainName', 'dzyngiri.com']);
+    _gaq.push(['_trackPageview']);
+  
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+    </body>
+    </html>
