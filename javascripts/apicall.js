@@ -7,9 +7,14 @@ function ranComments(){
 	 
 
 
+  /*$(document).ajaxStop(function () {
+      // 0 === $.active
+  });*/
+
+
   var jqXHR=$.ajax({
     type: "POST",  
-    url: "http://api.nytimes.com/svc/events/v2/listings.jsonp?ll=40.756146%2C-73.99021&radius=10000&limit=20&api-key=f02694c07ce3d1b319e884d95e82a2b9:13:70159998",
+    url: "http://api.nytimes.com/svc/community/v2/comments/random.jsonp?api-key=c1e1743caa6b5ead9bd761b809f4b2a6:5:70159998",
      async : false,
       // jsonpCallback: 'myJSON',
     cache: false,
@@ -40,18 +45,18 @@ function ranComments(){
 
       $("#where").empty().append('');
 
-      for(i = 0; i<data.results.length; i++){
+      for(i = 0; i<data.results.comments.length; i++){
       $("#where").append('</br>');
       $("#where").append("Comment#"+(i+1));
-      /*var res = (data.results.comments[i].userComments).split('/');
+      var res = (data.results.comments[i].userComments).split('/');
       var last = res[res.length-1].split(".");
-      useridList.push(last[0]);*/
+      useridList.push(last[0]);
 
-      $("#where").append('</br><div style="margin: 0px" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"") + '"><div title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "starDiv'+ i +'" class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li></ul></div></div>');
+      $("#where").append('</br><div style="margin: 0px" title = "'+ data.results.comments[i].display_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"") + '"><div title = "'+ data.results.comments[i].display_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "starDiv'+ i +'" class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li></ul></div></div>');
       // console.log('<div id = "starDiv'+ i +'" style="margin: 0px"><div class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li></ul></div></div>')
 
       $("#where").append('</br>');
-      $("#where").append(data.results[i].event_name);
+      $("#where").append(data.results.comments[i].commentBody);
       $("#where").append('</br>');
 
       /*var aTag = document.createElement('a');
@@ -59,23 +64,23 @@ function ranComments(){
       // mydiv.appendChild(aTag);
 
       $("#where").append(aTag);*/
-      $("#where").append('User: '+data.results[i].display_name);
+      $("#where").append('User: '+data.results.comments[i].display_name);
       $("#where").append('</br>');      
       $("#where").append('Article: ');
-      $("#where").append('<a href="' + data.results.articleURL + '" target="_blank">' + data.results[i].articleURL + '</a>');
+      $("#where").append('<a href="' + data.results.comments[i].articleURL + '" target="_blank">' + data.results.comments[i].articleURL + '</a>');
 
       $("#where").append('</br>');
-      $("#where").append('Recommended by: '+data.results.recommendationCount);
+      $("#where").append('Recommended by: '+data.results.comments[i].recommendationCount);
       $("#where").append('</br>');
-      $("#where").append('location: '+data.results[i].location);
+      $("#where").append('location: '+data.results.comments[i].location);
       $("#where").append('</br>');
       // $("#where").append('More comments from '+data.results.comments[i].display_name+": ");
       
       /*$("#where").append('userComments: '+data.results.comments[i].userComments);
       $("#where").append('</br>');*/
       
-      // $("#where").append('<p style="cursor: pointer; color: brown;" value= "' + last[0] +'" id = "' + last[0] +'" >' + 'Click here for more comments from '+data.results.comments[i].display_name + '</p>');
-      // console.log(last[0]);
+      $("#where").append('<p style="cursor: pointer; color: brown;" value= "' + last[0] +'" id = "' + last[0] +'" >' + 'Click here for more comments from '+data.results.comments[i].display_name + '</p>');
+      console.log(last[0]);
       // $("#where").append('</br>');
 
       $("#where").append('<div class = "otherComments"></div>');
@@ -331,27 +336,28 @@ $("#selectType").change(function() {
 
 
 function searchComments(){
-
       $("#usernameError").hide();
       $("#nofield").hide();
       $("#noresults").hide();
 
       console.log("inside searchcomment");
 
-      if (document.getElementById("datepicker1").value == '' && document.getElementById("text").value == '') {
-          $("#usernameError").show();
-          return;
+      if (document.getElementById("selectType").value == 'none') {
+
+        $("#nofield").show();
+
       }
+     if (document.getElementById("selectType").value == 'article') {
 
-     if(document.getElementById("datepicker1").value != '')
-     var comDate = document.getElementById("datepicker1").value;
-     comDateList = comDate.split("/");
-     newComDate = comDateList[2]+comDateList[0]+comDateList[1];
-     console.log("date is "+ newComDate);         
+      if(document.getElementById("articleName").value == ''){
+                $("#usernameError").show();
 
-    artUrl = encodeURI(document.getElementById("articleName").value);
+
+      }      
+
+      artUrl = encodeURI(document.getElementById("articleName").value);
         
-    var jqXHR=$.ajax({
+      var jqXHR=$.ajax({
     type: "POST",  
     // url: "http://api.nytimes.com/svc/community/v2/comments/random.jsonp?api-key=c1e1743caa6b5ead9bd761b809f4b2a6:5:70159998",
     url: "http://api.nytimes.com/svc/community/v2/comments/url/exact-match.jsonp?url="+ artUrl +"&api-key=c1e1743caa6b5ead9bd761b809f4b2a6:5:70159998",
