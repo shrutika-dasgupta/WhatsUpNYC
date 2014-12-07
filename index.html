@@ -2,7 +2,7 @@
     <html lang="en">
     <head>
     <meta charset="utf-8">
-    <title>Commentator</title>
+    <title>WhatsupNYC!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -59,6 +59,7 @@
     <script>
     $(function() {
     $( "#datepicker1" ).datepicker();
+    $( "#datepicker2" ).datepicker();
     });
   </script>
 
@@ -74,7 +75,7 @@
    $(document).ready(function(){
         $("#articleName").hide();
         $("#commenterName").hide();
-        $("#datepicker1").hide();      
+        // $("#datepicker1").hide();      
     });  
 
   if (window.location.href.indexOf("invalidusername") > -1) {
@@ -138,7 +139,7 @@
           <div class="container">
             <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a>
-            <h1 class="brand"><a href="#top">Commentator</a></h1>
+            <h1 class="brand"><a href="#top">What's up NYC!</a></h1>
             <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
             <nav class="pull-right nav-collapse collapse">
               <ul id="menu-main" class="nav">
@@ -157,10 +158,10 @@
     <!-- ******************** HeaderWrap ********************-->
     <div id="headerwrap">
       <header class="clearfix">
-        <h1><span>Search comments</span></h1>
+        <h1><span>Search Events</span></h1>
         <div class="container" style="position: relative;">
           <div id="divfix" title="Average comment rating for users">
-            Comment Ratings
+            Favorite Events
           </div>
 
 
@@ -168,40 +169,55 @@
           <div class="row">
             <div class="span12">
               <!--<form method="POST" action="commentList.html" name="random" id="random">-->
-              <h2 style="margin-left:-6%;">Random comments</h2>
+              <h2 style="margin-left:-6%;">Events happening around you!</h2>
               <!-- <input type="submit" value="Generate" class="cform-submit" onclick="ranComments()">   -->
-              <input type = "button" value="Generate" onclick="ranComments()" class="cform-submit" 
+              <input type = "button" value="Events" onclick="ranComments()" class="cform-submit" 
               style="margin-left:39%;" title="click here to generate random comments">
               <!-- </form> -->
               <h2 style="margin-left:-6%;">Or</h2>
-              <h2 style="margin-left:-6%;">Select a field to search comments</h2>
+              <h2 style="margin-left:-6%;">Find events you like</h2>
               
               <h2 id="usernameError" style="color: gold; margin-left:-6%;" hidden="true">Please Enter Value</h2>
               <h2 id="nofield" style="color: gold; margin-left:-6%;" hidden="true">Please select one field</h2>
              
               <h2 id="noresults" style="color: gold; margin-left:-6%;" hidden="true">No results found</h2>
-              <div class = "row">
+              <!-- <div class = "row">
               <select id ="selectType" style="width: 290px; font-size: 22px; height: 60px; margin-left:-6%; font-family: 'Open Sans', sans serif;" title="select the type of field for search">
               <option value="none">Select here</option>  
               <option value="article">Article URL</option>
               <option value="commenter">Commenter user id</option>
               <option value="commentDate">Comment date</option>
               </select>
-              </div>
-              <div class="row">&nbsp</div>
+              </div> -->
+              <!-- <div class="row">&nbsp</div>
               <input type="text" id="articleName" name="keywords" placeholder="Article URL" class="cform-text" size="20" title="your email" style="margin-left:-6%;">
               
               <input type="text" id="commenterName" name="username" placeholder="Commenter user id" class="cform-text" size="20" title="username" style = "width:290px; margin-left:-6%;">
               
-              
-              <input type="text" id="datepicker1" name="uploadedsince" placeholder="Commented on" class="cform-text" size="20" style = "width:290px; margin-left:-6%;">
+              <input type="text" id="datepicker1" name="uploadedsince" placeholder="Commented on" class="cform-text" size="20" style = "width:290px; margin-left:-6%;"> -->
               <!--
               <input type="text" id="datepicker2" name="uploadeduntil" placeholder="Uploaded Until" class="cform-text" size="20" style = "width:290px;">
               -->
+              <input type="text" name="keywords" placeholder="Enter keywords" class="cform-text" style="margin-left:-6%;" size="30" title="your email">
+              <div class="row">&nbsp</div>              
+              <input type="text" id="datepicker1" name="uploadedsince" placeholder="Uploaded Since" class="cform-text" size="20" style = "width:290px; margin-left:-6%;">
+              
+              <input type="text" id="datepicker2" name="uploadeduntil" placeholder="Uploaded Until" class="cform-text" size="20" style = "width:290px; ">
+
+              <input type="text" name="category" placeholder="Category" class="cform-text" style="margin-left:-6%;" size="30" title="Category">
+
+              <input type="text" name="borough" placeholder="Borough" class="cform-text" size="30" title="Borough">
+
+              <input type="text" name="neighborhood" placeholder="Neighborhood" class="cform-text" style="margin-left:-6%;" size="30" title="Neighborhood">
+
+              <input type="text" name="keywords" placeholder="Enter keywords" class="cform-text" style="margin-left:-6%;" size="30" title="your email">
+
+
             </div>
           </div>
           <div class="row" id="searchButton">
           <br>
+            <button id="advanced-options"class="advanced" style = " background:none; border:none; margin-left:36%; color: white; font-size: 17px; " ><u>Advanced options</u></button>
           <div class="row">&nbsp</div>
           <input type = "button" value="Search" onclick="searchComments()" class="cform-submit" id="searchButton"
               style="margin-left:41.7%;" title="click here to search">

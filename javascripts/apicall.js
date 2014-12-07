@@ -14,7 +14,7 @@ function ranComments(){
 
   var jqXHR=$.ajax({
     type: "POST",  
-    url: "http://api.nytimes.com/svc/community/v2/comments/random.jsonp?api-key=c1e1743caa6b5ead9bd761b809f4b2a6:5:70159998",
+    url: "http://api.nytimes.com/svc/events/v2/listings.jsonp?ll=40.756146%2C-73.99021&radius=10000&limit=20&api-key=f02694c07ce3d1b319e884d95e82a2b9:13:70159998",
      async : false,
       // jsonpCallback: 'myJSON',
     cache: false,
@@ -27,7 +27,7 @@ function ranComments(){
       // work with the response
     success: function( data ) {
           
-      
+      console.log(data);
 
       var useridList = [];
       $("#addrwhere").empty().append("Here are some comments for you");
@@ -45,18 +45,21 @@ function ranComments(){
 
       $("#where").empty().append('');
 
-      for(i = 0; i<data.results.comments.length; i++){
+      for(i = 0; i<data.results.length; i++){
       $("#where").append('</br>');
-      $("#where").append("Comment#"+(i+1));
-      var res = (data.results.comments[i].userComments).split('/');
+      $("#where").append("Event#"+(i+1));
+      /*var res = (data.results.comments[i].userComments).split('/');
       var last = res[res.length-1].split(".");
-      useridList.push(last[0]);
+      useridList.push(last[0]);*/
 
-      $("#where").append('</br><div style="margin: 0px" title = "'+ data.results.comments[i].display_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"") + '"><div title = "'+ data.results.comments[i].display_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "starDiv'+ i +'" class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li></ul></div></div>');
+      $("#where").append('</br><div style="margin: 0px" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"") + '"><div title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "starDiv'+ i +'" class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li></ul></div></div>');
       // console.log('<div id = "starDiv'+ i +'" style="margin: 0px"><div class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li></ul></div></div>')
 
       $("#where").append('</br>');
-      $("#where").append(data.results.comments[i].commentBody);
+      $("#where").append(data.results[i].event_name);
+      $("#where").append('</br>');
+      $("#where").append('</br>');
+      $("#where").append(data.results[i].web_description);
       $("#where").append('</br>');
 
       /*var aTag = document.createElement('a');
@@ -64,26 +67,35 @@ function ranComments(){
       // mydiv.appendChild(aTag);
 
       $("#where").append(aTag);*/
-      $("#where").append('User: '+data.results.comments[i].display_name);
-      $("#where").append('</br>');      
-      $("#where").append('Article: ');
-      $("#where").append('<a href="' + data.results.comments[i].articleURL + '" target="_blank">' + data.results.comments[i].articleURL + '</a>');
+      /*$("#where").append('User: '+data.results[i].display_name);
+      $("#where").append('</br>'); */     
+      $("#where").append('Event url: ');
+      $("#where").append('<a href="' + data.results[i].event_detail_url + '" target="_blank">' + data.results[i].event_detail_url + '</a>');
 
       $("#where").append('</br>');
-      $("#where").append('Recommended by: '+data.results.comments[i].recommendationCount);
+      /*$("#where").append('Recommended by: '+data.results.recommendationCount);
+      $("#where").append('</br>');*/
+      $("#where").append('Where: ');
       $("#where").append('</br>');
-      $("#where").append('location: '+data.results.comments[i].location);
+      $("#where").append(data.results[i].venue_name);
+      $("#where").append('</br>');
+      $("#where").append(data.results[i].cross_street);
+      $("#where").append('</br>');
+      $("#where").append(data.results[i].borough);
+      $("#where").append('</br>');
+      $("#where").append(data.results[i].city);
       $("#where").append('</br>');
       // $("#where").append('More comments from '+data.results.comments[i].display_name+": ");
       
       /*$("#where").append('userComments: '+data.results.comments[i].userComments);
       $("#where").append('</br>');*/
       
-      $("#where").append('<p style="cursor: pointer; color: brown;" value= "' + last[0] +'" id = "' + last[0] +'" >' + 'Click here for more comments from '+data.results.comments[i].display_name + '</p>');
-      console.log(last[0]);
+      // $("#where").append('<p style="cursor: pointer; color: brown;" value= "' + last[0] +'" id = "' + last[0] +'" >' + 'Click here for more comments from '+data.results.comments[i].display_name + '</p>');
+      // console.log(last[0]);
       // $("#where").append('</br>');
 
       $("#where").append('<div class = "otherComments"></div>');
+
 
       var $me = $('#starDiv'+i);
 
@@ -330,6 +342,12 @@ $("#selectType").change(function() {
     }
     });
 
+$("#advanced-options").click(function() {
+
+        jQuery('#advanced-options').hide();
+
+
+});
 
    
 });
