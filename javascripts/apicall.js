@@ -2,31 +2,21 @@
 // var key = "c1e1743caa6b5ead9bd761b809f4b2a6:5:70159998";
 // var url = "http://api.nytimes.com/svc/community/v2/comments/random.json?api-key=c1e1743caa6b5ead9bd761b809f4b2a6:5:70159998";    
 var commentMap = {};
-function ranComments(){
-	// console.log("inside ranComments");
-	 
 
+function resetPageNumber() {
+    var pageNum = document.getElementById("currentPageNum");
 
-  /*$(document).ajaxStop(function () {
-      // 0 === $.active
-  });*/
+    pageNum.value = "1";
+    //console.log($('#currentPageNum').val());
+  }
+  function nextPageNumber() {
+    var pageNum = document.getElementById("currentPageNum");
+    var newNum = Number(pageNum.value) + 1;
+    pageNum.value = newNum;
+    //console.log($('#currentPageNum').val());
+  }
 
-
-  var jqXHR=$.ajax({
-    type: "POST",  
-    url: "http://api.nytimes.com/svc/events/v2/listings.jsonp?ll=40.756146%2C-73.99021&radius=10000&limit=20&api-key=f02694c07ce3d1b319e884d95e82a2b9:13:70159998",
-     async : false,
-      // jsonpCallback: 'myJSON',
-    cache: false,
-    contentType: "application/json",
-    dataType: "jsonp",
-    // jsonpCallback: 'callback',
-    // jsonpCallback: "localJsonpCallback",
-    // crossDomain: true,
-    // jsonp: false,
-      // work with the response
-    success: function( data ) {
-          
+function processResults(data) {
       console.log(data);
 
       var useridList = [];
@@ -46,11 +36,11 @@ function ranComments(){
       $("#where").empty().append('');
 
       for(i = 0; i<data.results.length; i++){
-      $("#where").append('</br>');
-      $("#where").append(" Event#"+(i+1)+"  ");
-      $("#where").append('<div style = "margin-left: 80%" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "pinDiv'+ i +'" class="pin-ctr" name = "' +data.results[i].event_detail_url +'"><ul><li id= "test'+i+'"><a href="#" id= "test'+i+'"><span class="glyphicon glyphicon-pushpin"></span></a></li></ul></div>');
-        
-      /*var res = (data.results.comments[i].userComments).split('/');
+        $("#where").append('</br>');
+        $("#where").append(" Event#"+(i+1)+"  ");
+        $("#where").append('<div style = "margin-left: 80%" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "pinDiv'+ i +'" class="pin-ctr" name = "' +data.results[i].event_detail_url +'"><ul><li id= "test'+i+'"><a href="#" id= "test'+i+'"><span class="glyphicon glyphicon-pushpin"></span></a></li></ul></div>');
+          
+        /*var res = (data.results.comments[i].userComments).split('/');
       var last = res[res.length-1].split(".");
       useridList.push(last[0]);*/
 
@@ -100,15 +90,13 @@ function ranComments(){
 
       $("#where").append('<div class = "otherComments"></div>');
 
-
       var $me = $('#starDiv'+i);
 
       $bg = $me.children( 'ul' );
       $fg = $bg.clone().addClass( 'star-fg' ).css( 'width', 0 ).appendTo( $me );
       $bg.addClass( 'star-bg' );   
-
-
       }
+
       $('.otherComments').hide();
       // document.getElementById("addrwhere").style.color = "black";
       document.getElementById("where").style.color = "black";
@@ -236,32 +224,42 @@ function ranComments(){
       }
     });
 
+}
 
-
-
-    },
-    error: function(e) {
-          console.log("failed: "+e.message);
+function randomEventsAjax(offset) {
+      $.ajax({
+               url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp',
+               type: 'GET',
+               dataType: 'jsonp',
+               cache: false, 
+               data: {
+                'll': "40.756146%2C-73.99021",
+                'radius': 10000,
+                'offset' : offset, 
+                'api-key': "f02694c07ce3d1b319e884d95e82a2b9:13:70159998"
+              }, 
+               success: function(res){
+                  //console.log(res.results);
+                  processResults(res);
+                      
+             }
+               , error: function(jqXHR, textStatus, err){
+                  showStatus('Server error in fetching Random Comments: ' + textStatus);
+                  //disableMoreSearch();
+               }
+            });
     }
-    });
-
-  // jqXHR.responseText;
-  // console.log( jqXHR.responseText );
-  
-  
 
 
- /*$(document).ajaxStop(function () {
-      // 0 === $.active
-      console.log("stopped");
-  });*/
 
-  scrollBox();
+
+function ranComments(){
+
+  var offset = (($('#currentPageNum').val() - 1) * 25);
+
+  randomEventsAjax(offset);
+
   }
-  
-  function scrollBox(){ 
-      $('#box').slideDown('fast');
-    }
 
 
   /*$.when(ranComments()).done(function(a1){
