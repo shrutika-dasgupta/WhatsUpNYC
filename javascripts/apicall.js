@@ -359,16 +359,7 @@ $("#selectType").change(function() {
         jQuery('#commenterName').hide();
         jQuery('#datepicker1').hide();
     }
-    });
-
-$("#advanced-options").click(function() {
-
-        jQuery('#advanced-options').hide();
-
-
-});
-
-   
+    });   
 });
 
 
@@ -906,17 +897,53 @@ function searchEvents() {
 
     }
 
+/*$("#advanced-options").click(function() {
+    makeVisible();
+});*/
 
+$(document).ready(function(){
+  /*function Visibility() {
+  else if($('#advanced-options > u').text() === "Show Advnced Options"){
+    makeInVisible();
+  }
+  
+}*/
 
-    function makeVisible() {
-        jQuery('#borough').show();
-        jQuery('#category').show();
-        jQuery('#neighborhood').show();
-        jQuery('#free').show();
-        jQuery('#kidFriendly').show();
-        jQuery('#festival').show();
-        $('label[for="free"]').show();
-        $('label[for="kidFriendly"]').show();
-        $('label[for="festival"]').show();
-   
-    }
+$("#advanced-options").click(function(){
+  var str = $('#advanced-options > u').text();
+  console.log(str);
+
+  if(str == "Show Advnced Options"){
+    makeVisible();
+  }
+   if(str == "Hide Advanced Options"){
+    makeInVisible();
+   }
+});
+
+  function makeVisible() {
+    jQuery('#borough').show();
+    jQuery('#category').show();
+    jQuery('#neighborhood').show();
+    jQuery('#free').show();
+    jQuery('#kidFriendly').show();
+    jQuery('#festival').show();
+    $('label[for="free"]').show();
+    $('label[for="kidFriendly"]').show();
+    $('label[for="festival"]').show();
+    $('#advanced-options > u').text("Hide Advnced Options");
+  }
+
+  function makeInVisible() {
+    jQuery('#borough').hide();
+    jQuery('#category').hide();
+    jQuery('#neighborhood').hide();
+    jQuery('#free').hide();
+    jQuery('#kidFriendly').hide();
+    jQuery('#festival').hide();
+    $('label[for="free"]').hide();
+    $('label[for="kidFriendly"]').hide();
+    $('label[for="festival"]').hide();
+    $('#advanced-options > u').text("Show Advnced Options");
+  }
+});
