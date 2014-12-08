@@ -5,6 +5,46 @@ var commentMap = {};
 
 var whichButtonClicked = 0;
 
+$(document).ready(function(){
+  $("#advanced-options").click(function(){
+    var str = $('#advanced-options > u').text();
+    console.log(str);
+    makeVisible();
+    if(str == "Show Advanced options"){
+      makeVisible();
+    }
+     else if(str == "Hide Advanced Options"){
+      makeInVisible();
+     }
+  });
+});
+
+function makeVisible() {
+  jQuery('#borough').show();
+  jQuery('#category').show();
+  jQuery('#neighborhood').show();
+  jQuery('#free').show();
+  jQuery('#kidFriendly').show();
+  jQuery('#festival').show();
+  $('label[for="free"]').show();
+  $('label[for="kidFriendly"]').show();
+  $('label[for="festival"]').show();
+  $('#advanced-options > u').text("Hide Advanced Options");
+}
+
+function makeInVisible() {
+  jQuery('#borough').hide();
+  jQuery('#category').hide();
+  jQuery('#neighborhood').hide();
+  jQuery('#free').hide();
+  jQuery('#kidFriendly').hide();
+  jQuery('#festival').hide();
+  $('label[for="free"]').hide();
+  $('label[for="kidFriendly"]').hide();
+  $('label[for="festival"]').hide();
+  $('#advanced-options > u').text("Show Advanced Options");
+}
+
 function resetPageNumber() {
     var pageNum = document.getElementById("currentPageNum");
 
@@ -296,77 +336,75 @@ function processResults(data) {
 }
 
 function randomEventsAjax(offset) {
-      $.ajax({
-               url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp',
-               type: 'GET',
-               dataType: 'jsonp',
-               cache: false, 
-               data: {
-                'll': "40.756146%2C-73.99021",
-                'radius': 10000,
-                'offset' : offset, 
-                'api-key': "f02694c07ce3d1b319e884d95e82a2b9:13:70159998"
-              }, 
-               success: function(res){
-                  //console.log(res.results);
-                  processResults(res);
-                      
-             }
-               , error: function(jqXHR, textStatus, err){
-                  showStatus('Server error in fetching Random Comments: ' + textStatus);
-                  disableMoreSearch();
-               }
-            });
-    }
+$.ajax({
+   url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp',
+   type: 'GET',
+   dataType: 'jsonp',
+   cache: false, 
+   data: {
+    'll': "40.756146%2C-73.99021",
+    'radius': 10000,
+    'offset' : offset, 
+    'api-key': "f02694c07ce3d1b319e884d95e82a2b9:13:70159998"
+  }, 
+ success: function(res){
+    //console.log(res.results);
+    processResults(res);
+   }, 
+   error: function(jqXHR, textStatus, err){
+      showStatus('Server error in fetching Random Comments: ' + textStatus);
+      disableMoreSearch();
+   }
+  });
+}
 
 function dateEventsAjax(fromDate, toDate, queryText, filters, offset) {
-      $.ajax({
-               url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp',
-               type: 'GET',
-               dataType: 'jsonp',
-               async: false,
-               cache: false, 
-               data: {
-                'date_range': fromDate + ":" + toDate,
-                'query': queryText,
-                'filters': filters,
-                'offset' : offset, 
-                'api-key': "f02694c07ce3d1b319e884d95e82a2b9:13:70159998"
-              }, 
-               success: function(res){
-                  //console.log(res.results);
-                  processResults(res);
-                      
-             }
-               , error: function(jqXHR, textStatus, err){
-                  showStatus('Server error in fetching Random Comments: ' + textStatus);
-                  disableMoreSearch();
-               }
-            });
-    }
+$.ajax({
+   url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp',
+   type: 'GET',
+   dataType: 'jsonp',
+   async: false,
+   cache: false, 
+   data: {
+    'date_range': fromDate + ":" + toDate,
+    'query': queryText,
+    'filters': filters,
+    'offset' : offset, 
+    'api-key': "f02694c07ce3d1b319e884d95e82a2b9:13:70159998"
+  }, 
+ success: function(res){
+    //console.log(res.results);
+    processResults(res);     
+ }, 
+ error: function(jqXHR, textStatus, err){
+    showStatus('Server error in fetching Random Comments: ' + textStatus);
+    disableMoreSearch();
+ }
+});
+}
 function queryEventsAjax(queryText, filters, offset) {
-      $.ajax({
-               url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp',
-               type: 'GET',
-               dataType: 'jsonp',
-               async: false,
-               cache: false, 
-               data: {
-                'query': queryText,
-                'filters': filters,
-                'offset' : offset, 
-                'api-key': "f02694c07ce3d1b319e884d95e82a2b9:13:70159998"
-              }, 
-               success: function(res){
-                  //console.log(res.results);
-                  processResults(res);
-                      
-             }
-               , error: function(jqXHR, textStatus, err){
-                  showStatus('Server error in fetching Random Comments: ' + textStatus);
-                  disableMoreSearch();
-               }
-            });
+$.ajax({
+   url: 'http://api.nytimes.com/svc/events/v2/listings.jsonp',
+   type: 'GET',
+   dataType: 'jsonp',
+   async: false,
+   cache: false, 
+   data: {
+    'query': queryText,
+    'filters': filters,
+    'offset' : offset, 
+    'api-key': "f02694c07ce3d1b319e884d95e82a2b9:13:70159998"
+  }, 
+   success: function(res){
+      //console.log(res.results);
+      processResults(res);
+          
+ }
+   , error: function(jqXHR, textStatus, err){
+      showStatus('Server error in fetching Random Comments: ' + textStatus);
+      disableMoreSearch();
+   }
+});
 
 }
 
@@ -520,45 +558,5 @@ function searchEvents() {
     makeVisible();
 });*/
 
-$(document).ready(function(){
-  $("#advanced-options").click(function(){
-    var str = $('#advanced-options > u').text();
-    console.log(str);
-    makeVisible();
-    if(str == "Show Advanced options"){
-      makeVisible();
-    }
-     else if(str == "Hide Advanced Options"){
-      makeInVisible();
-     }
-  });
-});
 
 
-  
-
-  function makeVisible() {
-    jQuery('#borough').show();
-    jQuery('#category').show();
-    jQuery('#neighborhood').show();
-    jQuery('#free').show();
-    jQuery('#kidFriendly').show();
-    jQuery('#festival').show();
-    $('label[for="free"]').show();
-    $('label[for="kidFriendly"]').show();
-    $('label[for="festival"]').show();
-    $('#advanced-options > u').text("Hide Advanced Options");
-  }
-
-  function makeInVisible() {
-    jQuery('#borough').hide();
-    jQuery('#category').hide();
-    jQuery('#neighborhood').hide();
-    jQuery('#free').hide();
-    jQuery('#kidFriendly').hide();
-    jQuery('#festival').hide();
-    $('label[for="free"]').hide();
-    $('label[for="kidFriendly"]').hide();
-    $('label[for="festival"]').hide();
-    $('#advanced-options > u').text("Show Advanced Options");
-  }
