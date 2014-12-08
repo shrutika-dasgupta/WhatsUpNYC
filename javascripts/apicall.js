@@ -520,24 +520,21 @@ function searchEvents() {
     makeVisible();
 });*/
 
+
 $(document).ready(function(){
-  /*function Visibility() {
-  else if($('#advanced-options > u').text() === "Show Advnced Options"){
-    makeInVisible();
-  }
-  
-}*/
 
-$("#advanced-options").click(function(){
-  var str = $('#advanced-options > u').text();
-  console.log(str);
-
-  if(str == "Show Advnced Options"){
+  $("#advanced-options").click(function(){
+    var str = $('#advanced-options > u').text();
+    console.log(str);
     makeVisible();
-  }
-   if(str == "Hide Advanced Options"){
-    makeInVisible();
-   }
+
+    if(str == "Show Advnced Options"){
+      makeVisible();
+    }
+     if(str == "Hide Advanced Options"){
+      makeInVisible();
+     }
+  });
 });
 
   function makeVisible() {
@@ -550,7 +547,7 @@ $("#advanced-options").click(function(){
     $('label[for="free"]').show();
     $('label[for="kidFriendly"]').show();
     $('label[for="festival"]').show();
-    $('#advanced-options > u').text("Hide Advnced Options");
+    $('#advanced-options > u').text("Hide Advanced Options");
   }
 
   function makeInVisible() {
@@ -563,6 +560,5 @@ $("#advanced-options").click(function(){
     $('label[for="free"]').hide();
     $('label[for="kidFriendly"]').hide();
     $('label[for="festival"]').hide();
-    $('#advanced-options > u').text("Show Advnced Options");
+    $('#advanced-options > u').text("Show Advanced Options");
   }
-});
