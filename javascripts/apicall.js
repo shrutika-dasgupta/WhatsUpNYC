@@ -143,6 +143,18 @@ function processResults(data) {
         var web_description = allResults.web_description;
         var telephone = allResults.telephone;
 
+        if (venue_name === undefined) {
+          venue_name = "";
+        } else {
+          venue_name = venue_name + ", ";
+        }
+        if (cross_street === undefined) {
+          cross_street = "";
+        } else {
+          cross_street = cross_street + ", ";
+        }
+
+
         var corgi_feed_well = document.createElement("div");
         corgi_feed_well.id = "corgi_feed_well/"+unique_id;
         corgi_feed_well.className = "corgi_feed_well";
@@ -179,12 +191,19 @@ function processResults(data) {
         meta_image.src = "images/quotes-2.png";
         document.getElementById(feed_profile_pic.id).appendChild(meta_image);
 
+        var pinForEvent = document.createElement("a");
+        pinForEvent.id = "pinNum-"+unique_id;
+        pinForEvent.href = "javascript:pinEvent("+unique_id+")";
+        pinForEvent.target = "_blank";
+        pinForEvent.innerHTML = "<span class=\"glyphicon glyphicon-pushpin\"></span>";
+        document.getElementById(feed_profile_pic.id).appendChild(pinForEvent);
+
         var feed_text = document.createElement("div");
         feed_text.id = "feed_text/"+unique_id;
         feed_text.className = "feed_text";
         document.getElementById(row1.id).appendChild(feed_text);
 
-        var text_para = "<h3 class=\"custom-head\">"+event_name+"</h3><p>"+web_description+"</p>";
+        var text_para = "<h3 id=\"feed_text_heading-"+unique_id+"\" class=\"custom-head\">"+event_name+"</h3><p>"+web_description+"</p>";
         document.getElementById(feed_text.id).innerHTML += text_para;
 
         var comment_area = document.createElement("div");
@@ -241,7 +260,7 @@ function processResults(data) {
         bottom_left.className = "bottom_left";
         document.getElementById(row2.id).appendChild(bottom_left);
 
-        var bottom_left_text = "<h4 class=\"icon-adult\">&nbsp;"+event_name+"</h4><h4 class=\"icon-calendar-sign\">&nbsp;"+category+"</h4><h4 class=\"icon-map-marker-alt\">&nbsp;"+venue_name+", "+cross_street+", "+city+", "+event_state+"</h4>";
+        var bottom_left_text = "<h4 class=\"icon-adult\">&nbsp;"+event_name+"</h4><h4 class=\"icon-calendar-sign\">&nbsp;"+category+"</h4><h4 class=\"icon-map-marker-alt\">&nbsp;<span id=\"venueNum" + unique_id + "\">"+venue_name+cross_street+city+", "+event_state+"</span></h4>";
 
         document.getElementById(bottom_left.id).innerHTML += bottom_left_text;
 
@@ -742,6 +761,20 @@ function searchEvents() {
 
     function pinEvent(idNum) {
       console.log("This is event number: " + idNum);
+      var url = $('#a_bottom_right-'+idNum).attr("href");
+      var title = $('#feed_text_heading-'+idNum).text();
+      var venue = $('#venueNum'+idNum).text();
+
+      var row1Tag = document.createElement("tr");
+      var col1Tag = document.createElement("td");
+
+      col1Tag.setAttribute('class', "td-heading");
+      //var eventData = "<p><b><a href=\""+url+">" + title + "</a></b></p><p>" + venue + "</p>";
+      var eventData = "<p><b><a href=\""+url+"\">" + title + "</a></b></p><p>" + venue + "</p>";
+      col1Tag.innerHTML = eventData;
+      row1Tag.setAttribute('id', "Event" +idNum);
+      row1Tag.appendChild(col1Tag);
+      $("#pinnedEventsTable").append(row1Tag);
     }
 
 /*$("#advanced-options").click(function() {
