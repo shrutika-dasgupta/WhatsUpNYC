@@ -86,15 +86,7 @@ function processResults(data) {
         $("#addrwhere").append("Found " + found + " events for you");
       }
 
-
-
-  
-
-
       $("#where").append('');
-
-
-
 
       for(i = 0; i<num; i++){
         $("#where").append('</br>');
