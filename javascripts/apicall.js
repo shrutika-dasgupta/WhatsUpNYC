@@ -124,6 +124,7 @@ function processResults(data) {
         // document.getElementById("addrwhere").style.backgroundColor = "";
         document.getElementById("addrwhere").style.fontSize="x-large";
         $("#addrwhere").append("Found " + found + " events for you");
+        document.getElementById("addrwhere").scrollIntoView();
       }
 
       $("#where").append('');
@@ -421,7 +422,7 @@ function processResults(data) {
 
       document.getElementById("where").style.fontWeight = "bold";
       // document.getElementById("addrwhere").style.fontWeight = "bold";
-      document.getElementById('moreEventsButton').scrollIntoView();
+      
 
 
    var $bg, $fg, wd, cc, ini, sw, fw, userId;
