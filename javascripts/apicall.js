@@ -48,8 +48,8 @@ function ranComments(){
       for(i = 0; i<data.results.length; i++){
       $("#where").append('</br>');
       $("#where").append(" Event#"+(i+1)+"  ");
-      $("#where").append('<div style = "margin-left: 80%" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "pinDiv'+ i +'" class="pin-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-pushpin"></span></a></li>');
-      
+      $("#where").append('<div style = "margin-left: 80%" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "pinDiv'+ i +'" class="pin-ctr" name = "' +data.results[i].event_detail_url +'"><ul><li id= "test'+i+'"><a href="#" id= "test'+i+'"><span class="glyphicon glyphicon-pushpin"></span></a></li></ul></div>');
+        
       /*var res = (data.results.comments[i].userComments).split('/');
       var last = res[res.length-1].split(".");
       useridList.push(last[0]);*/
@@ -121,9 +121,6 @@ function ranComments(){
       // document.getElementById("addrwhere").style.fontWeight = "bold";
       document.getElementById('searchButton').scrollIntoView();
 
-
-
-     
 
    var $bg, $fg, wd, cc, ini, sw, fw, userId;
 
