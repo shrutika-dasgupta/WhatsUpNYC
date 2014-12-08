@@ -940,22 +940,22 @@ function searchEvents() {
     makeVisible();
 });*/
 
-
 $(document).ready(function(){
-
   $("#advanced-options").click(function(){
     var str = $('#advanced-options > u').text();
     console.log(str);
-    makeVisible();
 
-    if(str == "Show Advnced Options"){
+    if(str == "Show Advanced options"){
       makeVisible();
     }
-     if(str == "Hide Advanced Options"){
+     else if(str == "Hide Advanced Options"){
       makeInVisible();
      }
   });
 });
+
+
+  
 
   function makeVisible() {
     jQuery('#borough').show();
