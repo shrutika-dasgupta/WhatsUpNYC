@@ -28,11 +28,28 @@ function resetPageNumber() {
     $("#status").append(text);
   }
 
+  function disableMoreSearch() {
+    $("#moreEventsButton").prop('value',"No more Events");
+    $("#moreEventsButton").attr('state', "0");
+  }
+  function enableMoreSearch() {
+    $("#moreEventsButton").prop('value',"More Events");
+    $("#moreEventsButton").attr('state', "1");
+  }
+
+  function getMoreEvents() {
+      var currentState = $("#moreEventsButton").attr('state');
+      if(currentState == "0") {
+        return;
+      }
+      clearStatus();
+      displayEvents();
+    }
+
   function clearResults() {
     resetPageNumber();
     clearStatus();
     $("#addrwhere").empty();
-    $("#addrwhere").append("Here are some comments for you");
   }
 
 function processResults(data) {
@@ -52,11 +69,21 @@ function processResults(data) {
   
 
 
-      $("#where").empty().append('');
+      $("#where").append('');
 
-      for(i = 0; i<data.results.length; i++){
+      var num = data.results.length;
+      var found = data.results.num_results;
+
+      var offset = (($('#currentPageNum').val() - 1) * 20);
+
+      if(offset == 0 && typeof found !== "undefined") {
+        /* Announce the total results */
+        $("#addrwhere").append("Found " + found + " comments for you");
+      }
+
+      for(i = 0; i<num; i++){
         $("#where").append('</br>');
-        $("#where").append(" Event#"+(i+1)+"  ");
+        $("#where").append(" Event#"+(offset+i+1)+"  ");
         $("#where").append('<div style = "margin-left: 80%" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "pinDiv'+ i +'" class="pin-ctr" name = "' +data.results[i].event_detail_url +'"><ul><li id= "test'+i+'"><a href="#" id= "test'+i+'"><span class="glyphicon glyphicon-pushpin"></span></a></li></ul></div>');
           
         /*var res = (data.results.comments[i].userComments).split('/');
@@ -116,6 +143,18 @@ function processResults(data) {
       $bg.addClass( 'star-bg' );   
       }
 
+      if (num < 20) {
+      disableMoreSearch();
+      } else {
+        enableMoreSearch();
+    }
+    if(num > 0) {
+      nextPageNumber();
+    }
+    if(num == 0) {
+      showStatus("No matching results were found!");
+    }
+
       $('.otherComments').hide();
       // document.getElementById("addrwhere").style.color = "black";
       document.getElementById("where").style.color = "black";
@@ -126,7 +165,7 @@ function processResults(data) {
 
       document.getElementById("where").style.fontWeight = "bold";
       // document.getElementById("addrwhere").style.fontWeight = "bold";
-      document.getElementById('searchButton').scrollIntoView();
+      document.getElementById('moreEventsButton').scrollIntoView();
 
 
    var $bg, $fg, wd, cc, ini, sw, fw, userId;
@@ -264,7 +303,7 @@ function randomEventsAjax(offset) {
              }
                , error: function(jqXHR, textStatus, err){
                   showStatus('Server error in fetching Random Comments: ' + textStatus);
-                  //disableMoreSearch();
+                  disableMoreSearch();
                }
             });
     }
@@ -272,9 +311,9 @@ function randomEventsAjax(offset) {
 
 
 
-function ranComments(){
+function displayEvents(){
 
-  var offset = (($('#currentPageNum').val() - 1) * 25);
+  var offset = (($('#currentPageNum').val() - 1) * 20);
 
   clearStatus();
   randomEventsAjax(offset);
