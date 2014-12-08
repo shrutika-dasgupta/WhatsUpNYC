@@ -129,9 +129,10 @@ function processResults(data) {
       $("#where").append('');
 
       for(i = 0; i<num; i++){
+        var idNum = offset+i+1;
         $("#where").append('</br>');
-        $("#where").append(" Event#"+(offset+i+1)+"  ");
-        $("#where").append('<div style = "margin-left: 80%" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "pinDiv'+ i +'" class="pin-ctr" name = "' +data.results[i].event_detail_url +'"><ul><li id= "test'+i+'"><a href="#" id= "test'+i+'"><span class="glyphicon glyphicon-pushpin"></span></a></li></ul></div>');
+        $("#where").append(" Event#"+idNum+"  ");
+        $("#where").append('<div style = "margin-left: 80%" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "pinDiv'+ idNum +'" class="pin-ctr" name = "' +data.results[i].event_detail_url +'"><ul><li><a href="javascript:pinEvent('+idNum+')"><span class="glyphicon glyphicon-pushpin"></span></a></li></ul></div>');
           
         /*var res = (data.results.comments[i].userComments).split('/');
       var last = res[res.length-1].split(".");
@@ -548,6 +549,10 @@ function searchEvents() {
           queryEventsAjax(query_text, filter_search, offset);
       }
 
+    }
+
+    function pinEvent(idNum) {
+      console.log("This is event number: " + idNum);
     }
 
 /*$("#advanced-options").click(function() {
