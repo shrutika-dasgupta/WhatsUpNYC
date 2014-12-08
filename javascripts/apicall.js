@@ -524,7 +524,7 @@ $(document).ready(function(){
   $("#advanced-options").click(function(){
     var str = $('#advanced-options > u').text();
     console.log(str);
-
+    makeVisible();
     if(str == "Show Advanced options"){
       makeVisible();
     }
