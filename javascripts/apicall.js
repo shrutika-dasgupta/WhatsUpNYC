@@ -99,6 +99,7 @@ function resetPageNumber() {
     //console.log("clearing results");
     resetPageNumber();
     clearStatus();
+    $("#addrwhere").empty();
     $("#where").empty();
     whichButtonClicked = 0;
   }
@@ -107,30 +108,25 @@ function processResults(data) {
       console.log(data);
 
       var useridList = [];
-
-      $("#addrwhere").append('</br>');
-      $("#addrwhere").append('</br>');
-      document.getElementById("addrwhere").style.color = "white";
-      document.getElementById("addrwhere").style.textAlign = "center";
-      document.getElementById("addrwhere").style.fontWeight = "bold";
-
-      // document.getElementById("addrwhere").style.backgroundColor = "";
-
-      document.getElementById("addrwhere").style.fontSize="x-large";
-  
-
-
-      $("#where").append('');
-
       var num = data.results.length;
-      var found = data.results.num_results;
+      var found = data.num_results;
 
       var offset = (($('#currentPageNum').val() - 1) * 20);
 
       if(offset == 0 && typeof found !== "undefined") {
         /* Announce the total results */
-        $("#addrwhere").append("Found " + found + " comments for you");
+        $("#addrwhere").append('</br>');
+        $("#addrwhere").append('</br>');
+        document.getElementById("addrwhere").style.color = "white";
+        document.getElementById("addrwhere").style.textAlign = "center";
+        document.getElementById("addrwhere").style.fontWeight = "bold";
+
+        // document.getElementById("addrwhere").style.backgroundColor = "";
+        document.getElementById("addrwhere").style.fontSize="x-large";
+        $("#addrwhere").append("Found " + found + " events for you");
       }
+
+      $("#where").append('');
 
       for(i = 0; i<num; i++){
         $("#where").append('</br>');
