@@ -16,11 +16,30 @@ function resetPageNumber() {
     //console.log($('#currentPageNum').val());
   }
 
+  function clearStatus() {
+    $("#status").empty();
+    $("#status").removeAttr('style');
+  }
+
+  function showStatus(text) {
+    $("#status").empty();
+    $("#status").show();
+    $("#status").attr('style', "background:white");
+    $("#status").append(text);
+  }
+
+  function clearResults() {
+    resetPageNumber();
+    clearStatus();
+    $("#addrwhere").empty();
+    $("#addrwhere").append("Here are some comments for you");
+  }
+
 function processResults(data) {
       console.log(data);
 
       var useridList = [];
-      $("#addrwhere").empty().append("Here are some comments for you");
+
       $("#addrwhere").append('</br>');
       $("#addrwhere").append('</br>');
       document.getElementById("addrwhere").style.color = "white";
@@ -257,6 +276,7 @@ function ranComments(){
 
   var offset = (($('#currentPageNum').val() - 1) * 25);
 
+  clearStatus();
   randomEventsAjax(offset);
 
   }
