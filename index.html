@@ -81,6 +81,7 @@
         $('label[for="free"]').hide();
         $('label[for="kidFriendly"]').hide();
         $('label[for="festival"]').hide();
+        $('#currentPageNum').hide();
     });  
 
 
@@ -183,7 +184,7 @@
               <!--<form method="POST" action="commentList.html" name="random" id="random">-->
               <h2 style="margin-left:-6%;">Events happening around you!</h2>
               <!-- <input type="submit" value="Generate" class="cform-submit" onclick="ranComments()">   -->
-              <input type = "button" value="Events" onclick="ranComments()" class="cform-submit" 
+              <input type = "button" value="Events" onclick="displayEvents()" class="cform-submit" 
               style="margin-left:39%;" title="click here to generate random comments">
               <!-- </form> -->
               <h2 style="margin-left:-6%;">Or</h2>
@@ -263,6 +264,7 @@
         <div id="where" style="width: 1060px;"></div>
         
         <p/>
+        <input type="button" id="moreEventsButton" class="cform-submit" style="margin-left:41.7%;" onclick="getMoreEvents()" value="No more Events" state="0">
 
     </div>
           </form> 
