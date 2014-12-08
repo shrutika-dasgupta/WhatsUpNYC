@@ -4502,7 +4502,44 @@ to {
 }
  
 .star-fg a > span {
-    color: Red;
+    color: Gold;
+}
+
+.pin-ctr {
+    display: inline-block;
+    position: relative;
+}
+ 
+.pin-ctr ul {
+    list-style: none outside none;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+ 
+.pin-fg {
+    top: 0;
+    position: absolute;
+}
+ 
+.pin-ctr li {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0;
+    margin: 0;
+}
+ 
+.pin-ctr a > span {
+    font-size: 1.5em;
+}
+ 
+.pin-bg a > span {
+    color: silver
+}
+ 
+.pin-fg a > span {
+    color: Brown;
 }
 
 #divfix {

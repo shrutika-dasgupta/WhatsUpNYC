@@ -47,12 +47,14 @@ function ranComments(){
 
       for(i = 0; i<data.results.length; i++){
       $("#where").append('</br>');
-      $("#where").append("Event#"+(i+1));
+      $("#where").append(" Event#"+(i+1)+"  ");
+      $("#where").append('<div style = "margin-left: 80%" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "pinDiv'+ i +'" class="pin-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-pushpin"></span></a></li>');
+      
       /*var res = (data.results.comments[i].userComments).split('/');
       var last = res[res.length-1].split(".");
       useridList.push(last[0]);*/
 
-      $("#where").append('</br><div style="margin: 0px" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"") + '"><div title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "starDiv'+ i +'" class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li></ul></div></div>');
+      
       // console.log('<div id = "starDiv'+ i +'" style="margin: 0px"><div class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li></ul></div></div>')
 
       $("#where").append('</br>');
@@ -85,6 +87,8 @@ function ranComments(){
       $("#where").append('</br>');
       $("#where").append(data.results[i].city);
       $("#where").append('</br>');
+      // $("#where").append('Rate this event: ');
+      $("#where").append('Rate this event: <div style="margin: 0px" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"") + '"><div title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "starDiv'+ i +'" class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li></ul></div></div>');
       // $("#where").append('More comments from '+data.results.comments[i].display_name+": ");
       
       /*$("#where").append('userComments: '+data.results.comments[i].userComments);
@@ -458,7 +462,7 @@ function searchEvents() {
                   var last = res[res.length-1].split(".");
                   useridList.push(last[0]);*/
 
-                  $("#where").append('</br><div style="margin: 0px" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"") + '"><div title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "starDiv'+ i +'" class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li></ul></div></div>');
+                  $("#where").append('</br><div style="margin: 0px" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"") + '"><div title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "starDiv'+ i +'" class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li></ul></div></div>');
                   // console.log('<div id = "starDiv'+ i +'" style="margin: 0px"><div class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li></ul></div></div>')
 
                   $("#where").append('</br>');
@@ -692,7 +696,7 @@ function searchEvents() {
                   var last = res[res.length-1].split(".");
                   useridList.push(last[0]);*/
 
-                  $("#where").append('</br><div style="margin: 0px" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"") + '"><div title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "starDiv'+ i +'" class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-heart"></span></a></li></ul></div></div>');
+                  $("#where").append('</br><div style="margin: 0px" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"") + '"><div title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "starDiv'+ i +'" class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li></ul></div></div>');
                   // console.log('<div id = "starDiv'+ i +'" style="margin: 0px"><div class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li></ul></div></div>')
 
                   $("#where").append('</br>');
