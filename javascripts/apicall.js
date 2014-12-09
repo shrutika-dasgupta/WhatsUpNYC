@@ -364,15 +364,18 @@ function processResults(data) {
         if(event_id in ratingPixel) {
 
             $fg = $bg.clone().addClass( 'star-fg' ).css( 'width', Math.round( ratingPixel[event_id] )+'px' ).appendTo( $me );
+            var data_prop = $('#starDiv'+event_id).data();
+            data_prop.curr = ratingPixel[event_id];
+            $('#starDiv'+event_id).attr('name', 'clicked');
 
         }
-
 
       }
 
       else {
         $fg = $bg.clone().addClass( 'star-fg' ).css( 'width', 0 ).appendTo( $me );
       }
+
       $bg.addClass( 'star-bg' );   
       }
 
