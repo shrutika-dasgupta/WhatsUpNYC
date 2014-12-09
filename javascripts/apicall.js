@@ -4,6 +4,10 @@
 var commentMap = {};
 var pinnedEvents = {};
 ratedEvents = {};
+
+var previous_rated = store.get('ratedEvents');
+ratedEvents = $.extend(previous_rated, ratedEvents);
+
 var icon_loc = "webContent/img/icon-images/";
 var unpinned = icon_loc+"pin-grey.png";
 var pinned = icon_loc+"pin-red.png";
@@ -448,6 +452,7 @@ function processResults(data) {
      data.curr = ow;
     
     var rateof = $(this).attr('data-value');
+
      if(!(userId in ratedEvents))
         { 
           
@@ -466,7 +471,9 @@ function processResults(data) {
             console.log("Inside not pinned events");                      
           }
 
-          else {
+          //swikriti
+
+          /*else {
 
             var child = document.getElementById("Event"+userId); 
             var col1Tag = document.createElement("td");
@@ -474,26 +481,28 @@ function processResults(data) {
             col1Tag.innerHTML = "rating :"+rateof;
             child.appendChild(col1Tag);                    
 
-          }
+          }*/
 
           
         }  
     else {
       
-        ratedEvents[userId] = (parseFloat(ratedEvents[userId]) + parseFloat($(this).attr('data-value')))/2;
+        ratedEvents[userId] = ((parseFloat(ratedEvents[userId]) + parseFloat($(this).attr('data-value')))/2).toFixed(2);
         var previous_rated = store.get('ratedEvents');
         ratedEvents = $.extend(previous_rated, ratedEvents); 
         store.set('ratedEvents', ratedEvents);
 
-        if(userId in pinnedEvents) {
+        //swikriti
+        /*if(userId in pinnedEvents) {
           
         var child = document.getElementById("Event"+userId); 
         //var list = document.getElementsByTagName("UL")[0];
         child.getElementsByTagName("td")[0].innerHTML = "rating :"+rateof;
         //var col1Tag = document.createElement("td");
-        }
+        }*/
 
       }
+       addStartoPinned(userId);
        return false;
    });
 
@@ -744,9 +753,12 @@ function searchEvents() {
 
             row1Tag.setAttribute('class', "pinned-table-tr");
             col1Tag.setAttribute('class', "td-heading");
+
             //var eventData = "<p><b><a href=\""+url+">" + title + "</a></b></p><p>" + venue + "</p>";
 
-            if(event_id in ratedEvents) {
+
+            //swikriti
+            /*if(event_id in ratedEvents) {
               console.log("Inside rated events");
               var rating = "rating :"+ ratedEvents[event_id];
               var eventData = "<p><b><a href=\""+url+"\">" + title +"</a></b></p><p>" + venue + "</p> <p>"+rating+"</p>";
@@ -755,11 +767,16 @@ function searchEvents() {
 
             else {
             var eventData = "<p><b><a href=\""+url+"\">" + title + "</a></b></p><p>" + venue + "</p>";
-            }
+            }*/
 
 
             var eventData = "<p><b><a href=\""+url+"\">" + title + "</a></b></p><p>" + venue + "</p>";
+            if(event_id in ratedEvents) {
+              eventData = eventData + "Rating: " + ratedEvents[event_id];
+            }
+
             col1Tag.innerHTML = eventData;
+            col1Tag.setAttribute('id', "PinnedEventCol" + event_id);
             row1Tag.setAttribute('id', "Event" +event_id);
 
             row1Tag.appendChild(col1Tag);
@@ -782,6 +799,23 @@ function searchEvents() {
               store.set('pinnedEvents', pinnedEvents);
             }
 
+    }
+
+    function addStartoPinned(event_id) {
+      console.log("Event id is "+ event_id);
+      var previous_pinned = store.get('pinnedEvents');
+        pinnedEvents = $.extend(previous_pinned, pinnedEvents);
+
+        if(event_id in pinnedEvents) {
+          var child = document.getElementById("PinnedEventCol"+event_id);
+          var oldHTML = child.innerHTML.split("Rating");
+          var old = oldHTML[0];
+          child.innerHTML = old + "Rating: " + ratedEvents[event_id];
+          pinnedEvents[event_id] = child.innerHTML;
+          previous_pinned = store.get('pinnedEvents');
+          pinnedEvents = $.extend(previous_pinned, pinnedEvents); 
+          store.set('pinnedEvents', pinnedEvents);
+        } 
     }
 
 /*$("#advanced-options").click(function() {

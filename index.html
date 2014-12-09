@@ -89,6 +89,7 @@
           
             var eventData = pinnedEvents[key];
             col1Tag.innerHTML = eventData;
+            col1Tag.setAttribute('id', "PinnedEventCol" + key);
             row1Tag.setAttribute('id', "Event" + key);
             row1Tag.appendChild(col1Tag);
             $("#pinnedEventsTable").append(row1Tag);
