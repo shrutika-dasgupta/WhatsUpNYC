@@ -19,6 +19,7 @@ $(document).ready(function(){
       makeInVisible();
      }
   });
+     $("#moreEventsButton").hide();
 });
 
 function makeVisible() {
@@ -77,8 +78,10 @@ function resetPageNumber() {
     $("#moreEventsButton").attr('state', "0");
   }
   function enableMoreSearch() {
+    $("#moreEventsButton").show();
     $("#moreEventsButton").prop('value',"More Events");
     $("#moreEventsButton").attr('state', "1");
+
   }
 
   function getMoreEvents() {
