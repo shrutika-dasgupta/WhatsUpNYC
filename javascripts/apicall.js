@@ -770,7 +770,7 @@ function searchEvents() {
             }*/
 
 
-            var eventData = "<p>hi</p><p class=\"pin-data\"><b><a href=\""+url+"\">" + title + "</a></b></p><p>" + venue + "</p>";
+            var eventData = "<div id=\"pin-cross/"+event_id+"\" onclick=\"delete_pin_onclick("+event_id+")\" class=\"pin-cross \"><span class=\"glyphicon glyphicon-remove\"></span></div><p class=\"pin-data\"><b><a href=\""+url+"\">" + title + "</a></b></p><p class=\"pin-data\">" + venue + "</p>";
             if(event_id in ratedEvents) {
               eventData = eventData + "Rating: " + ratedEvents[event_id];
             }
@@ -821,3 +821,17 @@ function searchEvents() {
 /*$("#advanced-options").click(function() {
     makeVisible();
 });*/
+
+function delete_pin_onclick(event_id){
+  
+  var image_id = "meta_image1/"+event_id;
+
+  document.getElementById(image_id).setAttribute('src',icon_loc+"pin-grey.png");  
+  var child = document.getElementById("Event"+event_id);
+  child.parentNode.removeChild(child);
+  delete pinnedEvents[event_id];
+  var previous_pinned = store.get('pinnedEvents');
+  delete previous_pinned[event_id];
+  pinnedEvents = $.extend(previous_pinned, pinnedEvents); 
+  store.set('pinnedEvents', pinnedEvents);
+}
