@@ -308,3 +308,8 @@ p.copyright {
   font-weight: bold;
   color: '000000';
 }
+
+#divfix{
+  overflow-x: hidden;
+  overflow-y: auto;
+}

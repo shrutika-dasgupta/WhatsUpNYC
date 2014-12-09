@@ -143,6 +143,8 @@ function processResults(data) {
         var venue_name = allResults.venue_name;
         var web_description = allResults.web_description;
         var telephone = allResults.telephone;
+        var street_address = allResults.street_address;
+        console.log(category);
 
         if (venue_name === undefined) {
           venue_name = "";
@@ -153,6 +155,14 @@ function processResults(data) {
           cross_street = "";
         } else {
           cross_street = cross_street + ", ";
+        }
+        if (telephone === undefined) {
+          telephone = "Not Contact Available";
+        } 
+        if (street_address === undefined) {
+          street_address = "";
+        } else {
+          street_address += ", ";
         }
 
 
@@ -189,7 +199,7 @@ function processResults(data) {
         var meta_image = document.createElement("img");
         meta_image.id = "meta_image/"+unique_id;
         meta_image.className = "meta_image";
-        meta_image.src = "images/quotes-2.png";
+        meta_image.src = "";
         document.getElementById(feed_profile_pic.id).appendChild(meta_image);
 
         var pinForEvent = document.createElement("a");
@@ -261,7 +271,7 @@ function processResults(data) {
         bottom_left.className = "bottom_left";
         document.getElementById(row2.id).appendChild(bottom_left);
 
-        var bottom_left_text = "<h4 class=\"icon-adult\">&nbsp;"+event_name+"</h4><h4 class=\"icon-calendar-sign\">&nbsp;"+category+"</h4><h4 class=\"icon-map-marker-alt\">&nbsp;<span id=\"venueNum" + unique_id + "\">"+venue_name+cross_street+city+", "+event_state+"</span></h4>";
+        var bottom_left_text = "<h4 class=\"icon-glasses\">&nbsp;"+venue_name+"</h4><h4 class=\"icon-phone-alt\">&nbsp;"+telephone+"</h4><h4 class=\"icon-map-marker-alt\">&nbsp;<span id=\"venueNum" + unique_id + "\">"+street_address+city+", "+event_state+"</span></h4>";
 
         document.getElementById(bottom_left.id).innerHTML += bottom_left_text;
 

@@ -2,9 +2,9 @@
 	Corgi: custom bootstrap theme. 
 	Author: Damian Sowers
 */
-body {
-	background: url("../images/billie_holiday.png") repeat;
-}
+/*body {
+	background: url("") repeat;
+}*/
 .navbar-inner {
 	padding-top:10px;
 	background-image:none;
@@ -141,7 +141,7 @@ body {
 	display:none;
 	padding:20px;
 	background-color:#111;
-	background: url("../images/white-wall.jpg") repeat;
+	background: url("") repeat;
 }
 .feed_hr {
 	margin-top:0;
