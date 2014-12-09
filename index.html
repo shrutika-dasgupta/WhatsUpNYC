@@ -72,7 +72,9 @@
 
     $(document).ready(function(){
     var pinnedEvents = store.get('pinnedEvents');
-    //console.log(pinnedEvents);
+    /*var ratedEvents = store.get('ratedEvents');
+    var ratingPixel = store.get('ratingPixel');
+    console.log(ratedEvents);*/
 
     for (var key in pinnedEvents) {
 
@@ -90,6 +92,7 @@
             $("#pinnedEventsTable").append(row1Tag);
   
     }
+
   });
 
     $(document).ready(function(){
