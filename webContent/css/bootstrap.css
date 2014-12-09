@@ -4564,8 +4564,8 @@ to {
   color: '000000';
 }
 
-input[type=checkbox]:not(old),
-input[type=radio   ]:not(old){
+input[type=checkbox],
+input[type=radio   ]{
   width     : 3em;
   margin    : 0;
   padding   : 0;
@@ -4573,15 +4573,15 @@ input[type=radio   ]:not(old){
   opacity   : 0;
 }
 
-input[type=checkbox]:not(old) + label,
-input[type=radio   ]:not(old) + label{
+input[type=checkbox] + label,
+input[type=radio   ] + label{
   display      : inline-block;
   margin-left  : -2em;
   line-height  : 1.5em;
 }
 
-input[type=checkbox]:not(old) + label > span,
-input[type=radio   ]:not(old) + label > span{
+input[type=checkbox] + label > span,
+input[type=radio   ] + label > span{
   display          : inline-block;
   width            : 1.2em;
   height           : 1.2em;
@@ -4597,8 +4597,8 @@ input[type=radio   ]:not(old) + label > span{
   vertical-align   : bottom;
 }
 
-input[type=checkbox]:not(old):checked + label > span,
-input[type=radio   ]:not(old):checked + label > span{
+input[type=checkbox]:checked + label > span,
+input[type=radio   ]:checked + label > span{
   background-image :    -moz-linear-gradient(rgb(224,224,224),rgb(240,240,240));
   background-image :     -ms-linear-gradient(rgb(224,224,224),rgb(240,240,240));
   background-image :      -o-linear-gradient(rgb(224,224,224),rgb(240,240,240));
@@ -4606,7 +4606,7 @@ input[type=radio   ]:not(old):checked + label > span{
   background-image :         linear-gradient(rgb(224,224,224),rgb(240,240,240));
 }
 
-input[type=checkbox]:not(old):checked + label > span:before{
+input[type=checkbox]:checked + label > span:before{
   content     : '✓';
   display     : block;
   width       : 1em;
@@ -4618,7 +4618,7 @@ input[type=checkbox]:not(old):checked + label > span:before{
   font-weight : bold;
 }
 
-input[type=radio]:not(old):checked +  label > span > span{
+input[type=radio]:checked +  label > span > span{
   display          : block;
   width            : 0.5em;
   height           : 0.5em;
