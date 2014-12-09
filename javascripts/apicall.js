@@ -4,9 +4,13 @@
 var commentMap = {};
 var pinnedEvents = {};
 ratedEvents = {};
+ratingPixel = {};
 
 var previous_rated = store.get('ratedEvents');
 ratedEvents = $.extend(previous_rated, ratedEvents);
+
+var previous_ratingPixel = store.get('ratingPixel');
+ratingPixel = $.extend(previous_ratingPixel, ratingPixel);
 
 var icon_loc = "webContent/img/icon-images/";
 var unpinned = icon_loc+"pin-grey.png";
@@ -306,7 +310,7 @@ function processResults(data) {
         row_up.className = "row user-id-search";
         document.getElementById(bottom_up.id).appendChild(row_up);
 
-        $("#"+row_up.id).append('<div style="margin: 0px" title = "'+ event_id + '"><div title = "'+ event_id + '" id = "starDiv'+ unique_id +'" class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li></ul></div></div>');
+        $("#"+row_up.id).append('<div style="margin: 0px" title = "'+ event_id + '"><div title = "'+ event_id + '" id = "starDiv'+ event_id +'" class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li></ul></div></div>');
 
         var feed_hr = document.createElement("hr");
         feed_hr.id = "hr-"+unique_id;
@@ -348,10 +352,27 @@ function processResults(data) {
         var span_bottom_right = document.createElement("span");
         span_bottom_right.id = "span_bottom_right-"+unique_id;
 
-      var $me = $('#starDiv'+unique_id);
+
+
+
+      var $me = $('#starDiv'+event_id);
 
       $bg = $me.children( 'ul' );
-      $fg = $bg.clone().addClass( 'star-fg' ).css( 'width', 0 ).appendTo( $me );
+
+      if(event_id in ratedEvents) {
+
+        if(event_id in ratingPixel) {
+
+            $fg = $bg.clone().addClass( 'star-fg' ).css( 'width', Math.round( ratingPixel[event_id] )+'px' ).appendTo( $me );
+
+        }
+
+
+      }
+
+      else {
+        $fg = $bg.clone().addClass( 'star-fg' ).css( 'width', 0 ).appendTo( $me );
+      }
       $bg.addClass( 'star-bg' );   
       }
 
@@ -466,40 +487,27 @@ function processResults(data) {
           ratedEvents = $.extend(previous_rated, ratedEvents); 
           store.set('ratedEvents', ratedEvents);
 
+          var previous_ratingPixel = store.get('ratingPixel');
+          ratingPixel[userId] = ow;
+          ratingPixel = $.extend(previous_ratingPixel, ratingPixel); 
+          store.set('ratingPixel', ratingPixel);
 
           if(!(userId in pinnedEvents)) {
             console.log("Inside not pinned events");                      
           }
-
-          //swikriti
-
-          /*else {
-
-            var child = document.getElementById("Event"+userId); 
-            var col1Tag = document.createElement("td");
-            col1Tag.setAttribute('class', "td-heading");
-            col1Tag.innerHTML = "rating :"+rateof;
-            child.appendChild(col1Tag);                    
-
-          }*/
-
           
         }  
     else {
       
-        ratedEvents[userId] = ((parseFloat(ratedEvents[userId]) + parseFloat($(this).attr('data-value')))/2).toFixed(2);
+        ratedEvents[userId] = rateof;
         var previous_rated = store.get('ratedEvents');
         ratedEvents = $.extend(previous_rated, ratedEvents); 
         store.set('ratedEvents', ratedEvents);
 
-        //swikriti
-        /*if(userId in pinnedEvents) {
-          
-        var child = document.getElementById("Event"+userId); 
-        //var list = document.getElementsByTagName("UL")[0];
-        child.getElementsByTagName("td")[0].innerHTML = "rating :"+rateof;
-        //var col1Tag = document.createElement("td");
-        }*/
+        ratingPixel[userId] = ow;
+        var previous_ratingPixel = store.get('ratingPixel');
+        ratingPixel = $.extend(previous_ratingPixel, ratingPixel); 
+        store.set('ratingPixel', ratingPixel);
 
       }
        addStartoPinned(userId);
