@@ -706,7 +706,6 @@ function searchEvents() {
     }
 
     function pinEvent(idNum, event_id) {
-      console.log("event_id: "+event_id+"   |  idnum: "+idNum);
       var image_id = "meta_image1/"+event_id;
       var image_src = document.getElementById(image_id).getAttribute('src');
          
@@ -729,7 +728,6 @@ function searchEvents() {
             var eventData = "<p><b><a href=\""+url+"\">" + title + "</a></b></p><p>" + venue + "</p>";
             col1Tag.innerHTML = eventData;
             row1Tag.setAttribute('id', "Event" +event_id);
-            row1Tag.setAttribute('class', "pinned_table_tr");
 
             row1Tag.appendChild(col1Tag);
             $("#pinnedEventsTable").append(row1Tag);

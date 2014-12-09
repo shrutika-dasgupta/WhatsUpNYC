@@ -85,6 +85,7 @@
             var row1Tag = document.createElement("tr");
             var col1Tag = document.createElement("td");
             col1Tag.setAttribute('class', "td-heading");
+            row1Tag.setAttribute('class', "pinned-table-tr");
           
             var eventData = pinnedEvents[key];
             col1Tag.innerHTML = eventData;
@@ -201,7 +202,7 @@
           <div id="divfix" title="Average comment rating for users">
             Pinned Events
             <div id="pinnedDiv">
-              <table id="pinnedEventsTable" border="0" cellspacing="5" cellpadding="3">
+              <table id="pinnedEventsTable" border="0" style="{border-collapse: separate; border-spacing: 5em}">
               </table>
             </div>
           </div>
@@ -334,6 +335,7 @@
 
     function clearStore(){
       store.clear();
+      window.reload();
     }
   </script>
     </body>
