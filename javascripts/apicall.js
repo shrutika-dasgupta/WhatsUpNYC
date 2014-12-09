@@ -244,12 +244,23 @@ function processResults(data) {
         meta_image.src = icon;
         document.getElementById(feed_profile_pic.id).appendChild(meta_image);
 
+        var feed_profile_pic1 = document.createElement("div");
+        feed_profile_pic1.id = "feed_profile_pic1/"+unique_id;
+        feed_profile_pic1.className = "feed_profile_pic_right";
+        document.getElementById(row1.id).appendChild(feed_profile_pic1);
+
+        var meta_image1 = document.createElement("img");
+        meta_image1.id = "meta_image1/"+unique_id;
+        meta_image1.className = "meta_image_pin";
+        meta_image1.src = icon_loc+"pin-red.png";
+        document.getElementById(feed_profile_pic1.id).appendChild(meta_image1);
+
         var pinForEvent = document.createElement("a");
         pinForEvent.id = "pinNum-"+unique_id;
         pinForEvent.href = "javascript:pinEvent("+unique_id+")";
         pinForEvent.target = "_blank";
         pinForEvent.innerHTML = "<span class=\"glyphicon glyphicon-pushpin\"></span>";
-        document.getElementById(feed_profile_pic.id).appendChild(pinForEvent);
+        document.getElementById(feed_profile_pic1.id).appendChild(pinForEvent);
 
         var feed_text = document.createElement("div");
         feed_text.id = "feed_text/"+unique_id;

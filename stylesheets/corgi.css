@@ -93,6 +93,14 @@
 	border-radius: 150px;
 	border:4px solid #efefef;
 }
+.meta_image_pin {
+	width: 50px;
+	height: 50px;
+	-webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+	border-radius: 150px;
+	border:4px none #efefef;
+}
 .feed_body {
 	padding:20px;
 /*	border-bottom:1px solid #efefef;*/
@@ -104,9 +112,15 @@
 	margin-left:15px;
 	margin-right:15px;
 }
+
+.feed_profile_pic_right {
+	float:right;
+	width:10%;
+	margin-right:15px;
+}
 .feed_text {
 	float:left;
-	width:80%;
+	width:75%;
 	font-size:18px;
 	color:#666;
 }
