@@ -4,6 +4,8 @@
 var commentMap = {};
 var pinnedEvents = {};
 var icon_loc = "webContent/img/icon-images/";
+var unpinned = icon_loc+"pin-grey.png";
+var pinned = icon_loc+"pin-red.png";
 
 var whichButtonClicked = 0;
 
@@ -130,6 +132,9 @@ function processResults(data) {
       }
 
       $("#where").append('');
+
+      var previous_pinned = store.get('pinnedEvents');
+      pinnedEvents = $.extend(previous_pinned, pinnedEvents);
 
       for(i = 0; i<num; i++){
         var unique_id = (offset+i+1);
@@ -259,10 +264,13 @@ function processResults(data) {
         var meta_image1 = document.createElement("img");
         meta_image1.id = "meta_image1/"+event_id;
         meta_image1.className = "meta_image_pin";
-        meta_image1.src = icon_loc+"pin-grey.png";
         document.getElementById(pinForEvent.id).appendChild(meta_image1);
 
-        
+        if (event_id in pinnedEvents){
+          meta_image1.src = pinned;
+        } else {
+          meta_image1.src = unpinned;
+        }
 
         var feed_text = document.createElement("div");
         feed_text.id = "feed_text/"+unique_id;
