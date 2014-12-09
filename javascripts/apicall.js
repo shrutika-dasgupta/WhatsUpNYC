@@ -723,6 +723,7 @@ function searchEvents() {
             var row1Tag = document.createElement("tr");
             var col1Tag = document.createElement("td");
 
+            row1Tag.setAttribute('class', "pinned-table-tr");
             col1Tag.setAttribute('class', "td-heading");
             //var eventData = "<p><b><a href=\""+url+">" + title + "</a></b></p><p>" + venue + "</p>";
             var eventData = "<p><b><a href=\""+url+"\">" + title + "</a></b></p><p>" + venue + "</p>";
