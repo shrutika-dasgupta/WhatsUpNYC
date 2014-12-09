@@ -144,7 +144,44 @@ function processResults(data) {
         var web_description = allResults.web_description;
         var telephone = allResults.telephone;
         var street_address = allResults.street_address;
+        var icon_loc = "webContent/img/icon-images/";
+        var icon = icon_loc;
         console.log(category);
+
+
+        if(category == "Art") {
+          icon += "art.gif";
+        }
+        else if (category == "Movies"){
+          icon += "movies3.png";
+        }
+        else if (category == "forChildren") {
+          icon += "child2.png";
+        } 
+        else if(category == "Theater") {
+          icon += "theater2.jpg";
+        } 
+        else if(category == "Comedy") {
+          icon += "comedy-joker.png";
+        } 
+        else if( category == "Jazz"){
+         icon += "jazz.jpg";
+        } 
+        else if(category == "Classical"){
+          icon += "classsicla.png";
+        }
+        else if(category == "Dance"){
+          icon += "dance.jpg";
+        }
+        else if(category == "Pop") {
+          icon += "pop.jpg";
+        }
+        else if( category == "spareTimes") {
+          icon += "spareTime.jpg";
+        }
+        else {
+          icon += "heart.png";
+        }
 
         if (venue_name === undefined) {
           venue_name = "";
@@ -157,12 +194,17 @@ function processResults(data) {
           cross_street = cross_street + ", ";
         }
         if (telephone === undefined) {
-          telephone = "Not Contact Available";
+          telephone = "No Contact Available";
         } 
         if (street_address === undefined) {
           street_address = "";
         } else {
           street_address += ", ";
+        }
+        if(city === undefined){
+          city = "";
+        } else {
+          city += ", ";
         }
 
 
@@ -199,7 +241,7 @@ function processResults(data) {
         var meta_image = document.createElement("img");
         meta_image.id = "meta_image/"+unique_id;
         meta_image.className = "meta_image";
-        meta_image.src = "";
+        meta_image.src = icon;
         document.getElementById(feed_profile_pic.id).appendChild(meta_image);
 
         var pinForEvent = document.createElement("a");
@@ -271,7 +313,7 @@ function processResults(data) {
         bottom_left.className = "bottom_left";
         document.getElementById(row2.id).appendChild(bottom_left);
 
-        var bottom_left_text = "<h4 class=\"icon-glasses\">&nbsp;"+venue_name+"</h4><h4 class=\"icon-phone-alt\">&nbsp;"+telephone+"</h4><h4 class=\"icon-map-marker-alt\">&nbsp;<span id=\"venueNum" + unique_id + "\">"+street_address+city+", "+event_state+"</span></h4>";
+        var bottom_left_text = "<h4 class=\"icon-glasses\">&nbsp;"+venue_name+"</h4><h4 class=\"icon-heart-alt\">&nbsp;"+category+"</h4><h4 class=\"icon-phone-alt\">&nbsp;"+telephone+"</h4><h4 class=\"icon-map-marker-alt\">&nbsp;<span id=\"venueNum" + unique_id + "\">"+street_address+city+event_state+"</span></h4>";
 
         document.getElementById(bottom_left.id).innerHTML += bottom_left_text;
 
@@ -419,7 +461,7 @@ function processResults(data) {
       nextPageNumber();
     }
     if(num == 0) {
-      showStatus("No matching results were found!");
+      //showStatus("No matching results were found!");
     }
 
       $('.otherComments').hide();
