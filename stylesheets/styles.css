@@ -335,7 +335,21 @@ p.copyright {
 }
 
 .pinned-table-div::-webkit-scrollbar-thumb{
-  background: #000000 !important;
+  background: rgba(96,96,96,0.5)  !important;
 }
 
+.main-body{
+  padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+}
 
+.main-body::-webkit-scrollbar {
+  width:10px;
+}
+
+.main-body::-webkit-scrollbar * {
+  background:transparent;
+}
+
+.main-body::-webkit-scrollbar-thumb{
+  background: #000000 !important;
+}

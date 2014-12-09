@@ -20,11 +20,6 @@
     <link href='http://fonts.googleapis.com/css?family=Quattrocento:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Patua+One' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <style>
-    body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-    }
-    </style>
     <link href="webContent/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="stylesheets/styles.css" type="text/css" rel="stylesheet">
     <link href="stylesheets/corgi.css" type="text/css" rel="stylesheet">
@@ -170,7 +165,7 @@
   </script>
 
     </head>
-    <body>
+    <body class="main-body">
     <!--******************** NAVBAR ********************-->
     <div class="navbar-wrapper">
       <div class="navbar navbar-inverse navbar-fixed-top">
@@ -266,29 +261,12 @@
           </div>
           <div class="row" id="searchButton">
           <br>
-            <button id="advanced-options"class="advanced" onclick="Visibility()" style = " background:none; border:none; margin-left:36%; color: white; font-size: 17px; " ><u>Show Advanced options</u></button><!-- 
-          <div class="row">&nbsp;</div> -->
+            <button id="advanced-options"class="advanced" style = " background:none; border:none; margin-left:36%; color: white; font-size: 17px; " ><u>Show Advanced options</u></button>
 
           <input name="pageNumber" id="currentPageNum" hidden="true" role="textbox" type="text" value="1">
           <input type = "button" value="Search" onclick="searchEventsButtonClick()" class="cform-submit" id="searchButton"
               style="margin-left:41.7%;" title="click here to search">
           </div>
-
-<!-- <div style="margin: 10px">
-<div class="star-ctr">
-  <ul>
-    <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
-    <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
-    <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
-    <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
-    <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
-  </ul>
-</div>
-</div> -->
-
-
-
-
 
            <div id="box">
         <p/>
@@ -303,17 +281,6 @@
         </div>
       </header>
     </div>
-
-
-   
-    <!--******************** Feature ********************-->
-    
-    <!--******************** Portfolio Section ********************-->
-
-    <!--******************** Services Section ********************-->
-    <!--******************** Testimonials Section ********************-->
-    
-    <!--******************** News Section ********************-->
     
     <!-- Loading the javaScript at the end of the page -->
     <script type="text/javascript" src="webContent/js/bootstrap.js"></script>
@@ -322,6 +289,9 @@
     
     
     <!--ANALYTICS CODE-->
+    </body>
+    </html>
+
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-29231762-1']);
@@ -339,5 +309,3 @@
       window.reload();
     }
   </script>
-    </body>
-    </html>
