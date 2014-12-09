@@ -272,7 +272,7 @@ function processResults(data) {
         document.getElementById(feed_profile_pic1.id).appendChild(pinForEvent);
 
         var meta_image1 = document.createElement("img");
-        meta_image1.id = "meta_image1/"+event_id;
+        meta_image1.id = "meta_image-"+event_id;
         meta_image1.className = "meta_image_pin";
         document.getElementById(pinForEvent.id).appendChild(meta_image1);
 
@@ -743,7 +743,7 @@ function searchEvents() {
     }
 
     function pinEvent(idNum, event_id) {
-      var image_id = "meta_image1/"+event_id;
+      var image_id = "meta_image-"+event_id;
       var image_src = document.getElementById(image_id).getAttribute('src');
          
         console.log("This is event number: " + idNum);
@@ -778,7 +778,7 @@ function searchEvents() {
             }*/
 
 
-            var eventData = "<div id=\"pin-cross/"+event_id+"\" onclick=\"delete_pin_onclick("+event_id+")\" class=\"pin-cross \"><span class=\"glyphicon glyphicon-remove\"></span></div><p class=\"pin-data\"><b><a href=\""+url+"\">" + title + "</a></b></p><p class=\"pin-data\">" + venue + "</p>";
+            var eventData = "<div id=\"pin-cross-"+event_id+"\" onclick=\"delete_pin_onclick("+event_id+")\" class=\"pin-cross \"><span class=\"glyphicon glyphicon-remove\"></span></div><p class=\"pin-data\"><b><a href=\""+url+"\">" + title + "</a></b></p><p class=\"pin-data\">" + venue + "</p>";
             if(event_id in ratedEvents) {
               eventData = eventData + "Rating: " + ratedEvents[event_id];
             }
@@ -832,9 +832,13 @@ function searchEvents() {
 
 function delete_pin_onclick(event_id){
   
-  var image_id = "meta_image1/"+event_id;
+  var image_id = "meta_image-"+event_id;
+  var image_element_pin = document.getElementById(image_id);
+  
+  if(image_element_pin != null){
+    image_element_pin.setAttribute('src',icon_loc+"pin-grey.png");
+  }
 
-  document.getElementById(image_id).setAttribute('src',icon_loc+"pin-grey.png");  
   var child = document.getElementById("Event"+event_id);
   child.parentNode.removeChild(child);
   delete pinnedEvents[event_id];
