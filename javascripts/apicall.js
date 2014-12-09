@@ -728,6 +728,8 @@ function searchEvents() {
             var eventData = "<p><b><a href=\""+url+"\">" + title + "</a></b></p><p>" + venue + "</p>";
             col1Tag.innerHTML = eventData;
             row1Tag.setAttribute('id', "Event" +event_id);
+            row1Tag.setAttribute('class', "pinned_table_tr");
+
             row1Tag.appendChild(col1Tag);
             $("#pinnedEventsTable").append(row1Tag);
             pinnedEvents[event_id] = eventData;

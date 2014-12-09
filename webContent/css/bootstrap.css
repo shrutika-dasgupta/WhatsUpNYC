@@ -4559,3 +4559,7 @@ to {
     font-size: 110%;
     /*opacity: 0.1;*/
 }
+
+.pinned_table_tr {
+  color: '000000';
+}

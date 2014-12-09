@@ -177,6 +177,7 @@
             <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a>
             <h1 class="brand"><a href="#top">What's up NYC!</a></h1>
+            <button onclick="clearStore()"> clear store</button>
             <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
             <nav class="pull-right nav-collapse collapse">
               <ul id="menu-main" class="nav">
@@ -200,7 +201,7 @@
           <div id="divfix" title="Average comment rating for users">
             Pinned Events
             <div id="pinnedDiv">
-              <table id="pinnedEventsTable" border="0">
+              <table id="pinnedEventsTable" border="0" cellspacing="5" cellpadding="3">
               </table>
             </div>
           </div>
@@ -330,6 +331,10 @@
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
+
+    function clearStore(){
+      store.clear();
+    }
   </script>
     </body>
     </html>
