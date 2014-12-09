@@ -3,6 +3,7 @@
 // var url = "http://api.nytimes.com/svc/community/v2/comments/random.json?api-key=c1e1743caa6b5ead9bd761b809f4b2a6:5:70159998";    
 var commentMap = {};
 var pinnedEvents = {};
+ratedEvents = {};
 var icon_loc = "webContent/img/icon-images/";
 var unpinned = icon_loc+"pin-grey.png";
 var pinned = icon_loc+"pin-red.png";
@@ -301,7 +302,7 @@ function processResults(data) {
         row_up.className = "row user-id-search";
         document.getElementById(bottom_up.id).appendChild(row_up);
 
-        $("#"+row_up.id).append('<div style="margin: 0px" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"") + '"><div title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "starDiv'+ unique_id +'" class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li></ul></div></div>');
+        $("#"+row_up.id).append('<div style="margin: 0px" title = "'+ event_id + '"><div title = "'+ event_id + '" id = "starDiv'+ unique_id +'" class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li></ul></div></div>');
 
         var feed_hr = document.createElement("hr");
         feed_hr.id = "hr-"+unique_id;
@@ -448,31 +449,53 @@ function processResults(data) {
      }
      var data = $(this).data();
      data.curr = ow;
-     // alert($(this).attr('data-value'));
-    // console.log("values:"+commentMap[userId]);
-     if(!(userId in commentMap))
+    
+    var rateof = $(this).attr('data-value');
+     if(!(userId in ratedEvents))
         { 
           
           commentMap[userId] = $(this).attr('data-value');
-          if(userId.indexOf(" ") >= 0){
-            userId = userId.split(' ').join('_');
-          }
           
+          
+          console.log(rateof);
+          
+          ratedEvents[userId] = rateof;
+          var previous_rated = store.get('ratedEvents');
+          ratedEvents = $.extend(previous_rated, ratedEvents); 
+          store.set('ratedEvents', ratedEvents);
 
-          $("#divfix").append('<div id="ratingHere'+userId +'"></div>');    
-          document.getElementById("ratingHere"+userId).style.color = "white";
-          // $("#ratingHere"+userId).append("reached here");
-          $("#ratingHere"+userId).append(userId.split('_').join(' ')+": "+$(this).attr('data-value'));
+
+          if(!(userId in pinnedEvents)) {
+            console.log("Inside not pinned events");                      
+          }
+
+          else {
+
+            var child = document.getElementById("Event"+userId); 
+            var col1Tag = document.createElement("td");
+            col1Tag.setAttribute('class', "td-heading");
+            col1Tag.innerHTML = "rating :"+rateof;
+            child.appendChild(col1Tag);                    
+
+          }
+
           
         }  
     else {
       
-        commentMap[userId] = (parseFloat(commentMap[userId]) + parseFloat($(this).attr('data-value')))/2;
-        var temp = commentMap[userId];
-        if(userId.indexOf(" ") >= 0){
-            userId = userId.split(' ').join('_');
-          }
-        $("#ratingHere"+userId).empty().append(userId.split('_').join(' ')+": "+temp.toFixed(2));
+        ratedEvents[userId] = (parseFloat(ratedEvents[userId]) + parseFloat($(this).attr('data-value')))/2;
+        var previous_rated = store.get('ratedEvents');
+        ratedEvents = $.extend(previous_rated, ratedEvents); 
+        store.set('ratedEvents', ratedEvents);
+
+        if(userId in pinnedEvents) {
+          
+        var child = document.getElementById("Event"+userId); 
+        //var list = document.getElementsByTagName("UL")[0];
+        child.getElementsByTagName("td")[0].innerHTML = "rating :"+rateof;
+        //var col1Tag = document.createElement("td");
+        }
+
       }
        return false;
    });
@@ -725,6 +748,19 @@ function searchEvents() {
             row1Tag.setAttribute('class', "pinned-table-tr");
             col1Tag.setAttribute('class', "td-heading");
             //var eventData = "<p><b><a href=\""+url+">" + title + "</a></b></p><p>" + venue + "</p>";
+
+            if(event_id in ratedEvents) {
+              console.log("Inside rated events");
+              var rating = "rating :"+ ratedEvents[event_id];
+              var eventData = "<p><b><a href=\""+url+"\">" + title +"</a></b></p><p>" + venue + "</p> <p>"+rating+"</p>";
+
+            }
+
+            else {
+            var eventData = "<p><b><a href=\""+url+"\">" + title + "</a></b></p><p>" + venue + "</p>";
+            }
+
+
             var eventData = "<p><b><a href=\""+url+"\">" + title + "</a></b></p><p>" + venue + "</p>";
             col1Tag.innerHTML = eventData;
             row1Tag.setAttribute('id', "Event" +event_id);
