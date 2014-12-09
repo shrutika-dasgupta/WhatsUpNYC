@@ -21,6 +21,7 @@ $(document).ready(function(){
       makeInVisible();
      }
   });
+     $("#moreEventsButton").hide();
 });
 
 function makeVisible() {
@@ -79,8 +80,10 @@ function resetPageNumber() {
     $("#moreEventsButton").attr('state', "0");
   }
   function enableMoreSearch() {
+    $("#moreEventsButton").show();
     $("#moreEventsButton").prop('value',"More Events");
     $("#moreEventsButton").attr('state', "1");
+
   }
 
   function getMoreEvents() {
@@ -190,9 +193,7 @@ function processResults(data) {
 
         if (venue_name === undefined) {
           venue_name = "";
-        } else {
-          venue_name = venue_name + ", ";
-        }
+        } 
         if (cross_street === undefined) {
           cross_street = "";
         } else {
