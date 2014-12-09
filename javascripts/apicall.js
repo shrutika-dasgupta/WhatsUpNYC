@@ -778,7 +778,7 @@ function searchEvents() {
             }*/
 
 
-            var eventData = "<p><b><a href=\""+url+"\">" + title + "</a></b></p><p>" + venue + "</p>";
+            var eventData = "<p>hi</p><p class=\"pin-data\"><b><a href=\""+url+"\">" + title + "</a></b></p><p>" + venue + "</p>";
             if(event_id in ratedEvents) {
               eventData = eventData + "Rating: " + ratedEvents[event_id];
             }
