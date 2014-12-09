@@ -325,3 +325,17 @@ p.copyright {
   border-collapse: separate; 
   border-spacing: 5px;
 }
+
+.pinned-table-div::-webkit-scrollbar {
+  width:10px;
+}
+
+.pinned-table-div::-webkit-scrollbar * {
+  background:transparent;
+}
+
+.pinned-table-div::-webkit-scrollbar-thumb{
+  background: #000000 !important;
+}
+
+
