@@ -188,9 +188,7 @@ function processResults(data) {
 
         if (venue_name === undefined) {
           venue_name = "";
-        } else {
-          venue_name = venue_name + ", ";
-        }
+        } 
         if (cross_street === undefined) {
           cross_street = "";
         } else {
