@@ -251,13 +251,13 @@ function processResults(data) {
 
         var pinForEvent = document.createElement("a");
         pinForEvent.id = "pinNum-"+unique_id;
-        pinForEvent.href = "javascript:pinEvent("+unique_id+")";
+        pinForEvent.href = "javascript:pinEvent("+unique_id+","+event_id+")";
         pinForEvent.target = "_blank";
         pinForEvent.innerHTML = "<span class=\"glyphicon\"></span>";
         document.getElementById(feed_profile_pic1.id).appendChild(pinForEvent);
 
         var meta_image1 = document.createElement("img");
-        meta_image1.id = "meta_image1/"+unique_id;
+        meta_image1.id = "meta_image1/"+event_id;
         meta_image1.className = "meta_image_pin";
         meta_image1.src = icon_loc+"pin-grey.png";
         document.getElementById(pinForEvent.id).appendChild(meta_image1);
@@ -292,7 +292,7 @@ function processResults(data) {
         row_up.className = "row user-id-search";
         document.getElementById(bottom_up.id).appendChild(row_up);
 
-        $("#"+row_up.id).append('Rate this event: <div style="margin: 0px" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"") + '"><div title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "starDiv'+ unique_id +'" class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li></ul></div></div>');
+        $("#"+row_up.id).append('<div style="margin: 0px" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"") + '"><div title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "starDiv'+ unique_id +'" class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li></ul></div></div>');
 
         var feed_hr = document.createElement("hr");
         feed_hr.id = "hr-"+unique_id;
@@ -696,16 +696,19 @@ function searchEvents() {
 
     }
 
-    function pinEvent(idNum) {
-      var image_id = "meta_image1/"+idNum;
+    function pinEvent(idNum, event_id) {
+      console.log("event_id: "+event_id+"   |  idnum: "+idNum);
+      var image_id = "meta_image1/"+event_id;
       var image_src = document.getElementById(image_id).getAttribute('src');
          
         console.log("This is event number: " + idNum);
         var url = $('#a_bottom_right-'+idNum).attr("href");
         var title = $('#feed_text_heading-'+idNum).text();
         var venue = $('#venueNum'+idNum).text();
+        var previous_pinned = store.get('pinnedEvents');
+        pinnedEvents = $.extend(previous_pinned, pinnedEvents);
 
-        if(!(title in pinnedEvents)) {
+        if(!(event_id in pinnedEvents)) {
 
             document.getElementById(image_id).setAttribute('src',icon_loc+"pin-red.png");    
             var row1Tag = document.createElement("tr");
@@ -715,10 +718,10 @@ function searchEvents() {
             //var eventData = "<p><b><a href=\""+url+">" + title + "</a></b></p><p>" + venue + "</p>";
             var eventData = "<p><b><a href=\""+url+"\">" + title + "</a></b></p><p>" + venue + "</p>";
             col1Tag.innerHTML = eventData;
-            row1Tag.setAttribute('id', "Event" +idNum);
+            row1Tag.setAttribute('id', "Event" +event_id);
             row1Tag.appendChild(col1Tag);
             $("#pinnedEventsTable").append(row1Tag);
-            pinnedEvents[title] = eventData;
+            pinnedEvents[event_id] = eventData;
             var previous_pinned = store.get('pinnedEvents');
             pinnedEvents = $.extend(previous_pinned, pinnedEvents); 
             store.set('pinnedEvents', pinnedEvents);
@@ -727,11 +730,11 @@ function searchEvents() {
 
             else {
               document.getElementById(image_id).setAttribute('src',icon_loc+"pin-grey.png");  
-              var child = document.getElementById("Event"+idNum);
+              var child = document.getElementById("Event"+event_id);
               child.parentNode.removeChild(child);
-              delete pinnedEvents[title];
+              delete pinnedEvents[event_id];
               var previous_pinned = store.get('pinnedEvents');
-              delete previous_pinned[title];
+              delete previous_pinned[event_id];
               pinnedEvents = $.extend(previous_pinned, pinnedEvents); 
               store.set('pinnedEvents', pinnedEvents);
             }
