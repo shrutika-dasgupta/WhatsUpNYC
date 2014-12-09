@@ -74,6 +74,27 @@
 
   function validation() {
 
+
+    $(document).ready(function(){
+    var pinnedEvents = store.get('pinnedEvents');
+    //console.log(pinnedEvents);
+
+    for (var key in pinnedEvents) {
+
+            console.log(pinnedEvents[key]);
+            var row1Tag = document.createElement("tr");
+            var col1Tag = document.createElement("td");
+            col1Tag.setAttribute('class', "td-heading");
+          
+            var eventData = pinnedEvents[key];
+            col1Tag.innerHTML = eventData;
+            row1Tag.setAttribute('id', "Event" + key);
+            row1Tag.appendChild(col1Tag);
+            $("#pinnedEventsTable").append(row1Tag);
+  
+    }
+  });
+
     $(document).ready(function(){
         jQuery('#borough').hide();
         jQuery('#category').hide();
