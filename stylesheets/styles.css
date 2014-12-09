@@ -320,3 +320,8 @@ p.copyright {
     color: black;
     z-index: +1;
 }
+
+.pinned-table-class{
+  border-collapse: separate; 
+  border-spacing: 5px;
+}

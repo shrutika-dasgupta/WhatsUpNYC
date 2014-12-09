@@ -336,15 +336,12 @@ function processResults(data) {
         a_bottom_right.id = "a_bottom_right-"+unique_id;
         a_bottom_right.href = event_url;
         a_bottom_right.target = "_blank";
-        var view_art = document.createTextNode("View Event");
+        var view_art = document.createTextNode("View Event Details");
         a_bottom_right.appendChild(view_art);
         document.getElementById(bottom_right.id).appendChild(a_bottom_right);
 
         var span_bottom_right = document.createElement("span");
         span_bottom_right.id = "span_bottom_right-"+unique_id;
-        var span_sym = document.createTextNode("|");
-        span_bottom_right.appendChild(span_sym);
-        document.getElementById(bottom_right.id).appendChild(span_bottom_right);
 
       var $me = $('#starDiv'+unique_id);
 
