@@ -3,7 +3,6 @@
 // var url = "http://api.nytimes.com/svc/community/v2/comments/random.json?api-key=c1e1743caa6b5ead9bd761b809f4b2a6:5:70159998";    
 var commentMap = {};
 var pinnedEvents = {};
-var icon_loc = "webContent/img/icon-images/";
 
 var whichButtonClicked = 0;
 
@@ -146,7 +145,9 @@ function processResults(data) {
         var web_description = allResults.web_description;
         var telephone = allResults.telephone;
         var street_address = allResults.street_address;
+        var icon_loc = "webContent/img/icon-images/";
         var icon = icon_loc;
+        console.log(category);
 
 
         if(category == "Art") {
@@ -249,20 +250,18 @@ function processResults(data) {
         feed_profile_pic1.className = "feed_profile_pic_right";
         document.getElementById(row1.id).appendChild(feed_profile_pic1);
 
+        var meta_image1 = document.createElement("img");
+        meta_image1.id = "meta_image1/"+unique_id;
+        meta_image1.className = "meta_image_pin";
+        meta_image1.src = icon_loc+"pin-red.png";
+        document.getElementById(feed_profile_pic1.id).appendChild(meta_image1);
+
         var pinForEvent = document.createElement("a");
         pinForEvent.id = "pinNum-"+unique_id;
         pinForEvent.href = "javascript:pinEvent("+unique_id+")";
         pinForEvent.target = "_blank";
-        pinForEvent.innerHTML = "<span class=\"glyphicon\"></span>";
+        pinForEvent.innerHTML = "<span class=\"glyphicon glyphicon-pushpin\"></span>";
         document.getElementById(feed_profile_pic1.id).appendChild(pinForEvent);
-
-        var meta_image1 = document.createElement("img");
-        meta_image1.id = "meta_image1/"+unique_id;
-        meta_image1.className = "meta_image_pin";
-        meta_image1.src = icon_loc+"pin-grey.png";
-        document.getElementById(pinForEvent.id).appendChild(meta_image1);
-
-        
 
         var feed_text = document.createElement("div");
         feed_text.id = "feed_text/"+unique_id;
@@ -293,6 +292,18 @@ function processResults(data) {
         document.getElementById(bottom_up.id).appendChild(row_up);
 
         $("#"+row_up.id).append('Rate this event: <div style="margin: 0px" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"") + '"><div title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "starDiv'+ unique_id +'" class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li></ul></div></div>');
+/*
+        var stars = document.createElement("input");
+        stars.id = "input-22-"+unique_id;
+        stars.type = "number";
+        stars.className = "rating";
+        stars.addEventListener('click', function(){
+          console.log("clicked event");
+        });
+        document.getElementById(row_up.id).appendChild(stars);*/
+
+       /* $("#input-22-"+unique_id).rating({'min':0, 'max':5, 'step':1, 'size':'xs'});
+        $('#input-22-'+unique_id).addClass('value-of-rating');*/
 
         var feed_hr = document.createElement("hr");
         feed_hr.id = "hr-"+unique_id;
@@ -336,6 +347,115 @@ function processResults(data) {
         var span_sym = document.createTextNode("|");
         span_bottom_right.appendChild(span_sym);
         document.getElementById(bottom_right.id).appendChild(span_bottom_right);
+
+        /*var show_more_comments = document.createElement("button");
+        show_more_comments.id = "show_more_comments-"+random_comment['userId'];
+        show_more_comments.className = "show_comment_link btn btn-link";
+        show_more_comments.type = "button"
+        show_more_comments.addEventListener('click', function(e){
+          e.preventDefault();
+          $(this).closest('.feed_item').find('.comment_area').slideToggle(700);
+          
+          var user_array = [];
+          user_array = (this.id).split('-');
+          var userId = user_array[1];
+          console.log(userId);
+          $.ajax({
+            type:'GET',
+            url: 'http://api.nytimes.com/svc/community/v2/comments/user/id/'+userId+'.jsonp?api-key=71b688b6fcaffe9ac59413b1d7de1a0c:1:70151851',
+            cache: false,
+            async: false,
+            dataType: 'jsonp',
+            success: function(data){
+              var objects = data.results.comments;
+              for (var j = 0; j < objects.length; j++){
+                var user_comments = objects[j]['commentBody'];
+                var user_name = objects[j]['display_name'];
+                var user_location = objects[j]['location'];
+                var u_dateTime = new Date(objects[j]['approveDate']*1000);
+                var u_day = u_dateTime.getDate();
+                var u_month = u_dateTime.getMonth();
+                var u_year = u_dateTime.getFullYear();
+
+                var user_date = u_month+"/"+u_day+"/"+u_year;
+
+                var div_other_comm = document.createElement("div");
+                div_other_comm.id = "div_other_comments/"+userId+"/"+j;
+                div_other_comm.className = "div-other-comments";
+                div_other_comm.style.border = '2px solid black';
+                document.getElementById("comment_area/"+userId).appendChild(div_other_comm);
+                var p_text  = "<p class = \"bg-primary text_box_comments\">"+user_comments+"</p>";
+                document.getElementById(div_other_comm.id).innerHTML += p_text;
+                var info = "<p id = \"info-"+unique_id+"-"+j+"\" class =\" bg-danger text_box_comments\"></p>";
+                document.getElementById(div_other_comm.id).innerHTML += info;
+                var all_info = "<h4 class=\"icon-adult\">&nbsp;"+user_name+"</h4><h4 class=\"icon-calendar-sign\">&nbsp;"+user_date+"</h4><h4 class=\"icon-map-marker-alt\">&nbsp;"+user_location+"</h4>";
+                $('p#info-'+unique_id+"-"+j).html(all_info);
+              }
+            },
+            error: function(){
+              console.log("error");
+            }
+          });
+
+        }, false);*/
+        /*var show_more_text = document.createTextNode("View Commentor's Comments");
+
+        show_more_comments.appendChild(show_more_text);
+        document.getElementById(bottom_right.id).appendChild(show_more_comments);*/
+/*
+        $("#where").append('</br>');
+        $("#where").append(" Event#"+(offset+unique_id+1)+"  ");
+        $("#where").append('<div style = "margin-left: 80%" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "pinDiv'+ i +'" class="pin-ctr" name = "' +data.results[i].event_detail_url +'"><ul><li id= "test'+unique_id+'"><a href="#" id= "test'+unique_id+'"><span class="glyphicon glyphicon-pushpin"></span></a></li></ul></div>');
+          
+        var res = (data.results.comments[i].userComments).split('/');
+      var last = res[res.length-1].split(".");
+      useridList.push(last[0]);
+
+      
+      // console.log('<div id = "starDiv'+ i +'" style="margin: 0px"><div class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li></ul></div></div>')
+
+      $("#where").append('</br>');
+      $("#where").append(data.results[i].event_name);
+      $("#where").append('</br>');
+      $("#where").append('</br>');
+      $("#where").append(data.results[i].web_description);
+      $("#where").append('</br>');
+
+      var aTag = document.createElement('a');
+      aTag.setAttribute('href',data.results.comments[i].articleURL);
+      // mydiv.appendChild(aTag);
+
+      $("#where").append(aTag);
+      $("#where").append('User: '+data.results[i].display_name);
+      $("#where").append('</br>');    
+      $("#where").append('Event url: ');
+      $("#where").append('<a href="' + data.results[i].event_detail_url + '" target="_blank">' + data.results[i].event_detail_url + '</a>');
+
+      $("#where").append('</br>');
+      $("#where").append('Recommended by: '+data.results.recommendationCount);
+      $("#where").append('</br>');
+      $("#where").append('Where: ');
+      $("#where").append('</br>');
+      $("#where").append(data.results[i].venue_name);
+      $("#where").append('</br>');
+      $("#where").append(data.results[i].cross_street);
+      $("#where").append('</br>');
+      $("#where").append(data.results[i].borough);
+      $("#where").append('</br>');
+      $("#where").append(data.results[i].city);
+      $("#where").append('</br>');
+      // $("#where").append('Rate this event: ');
+      $("#where").append('Rate this event: <div style="margin: 0px" title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"") + '"><div title = "'+ data.results[i].event_name.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"")+ '" id = "starDiv'+ i +'" class="star-ctr"><ul><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li><li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li></ul></div></div>');
+      // $("#where").append('More comments from '+data.results.comments[i].display_name+": ");
+      
+      /*$("#where").append('userComments: '+data.results.comments[i].userComments);
+      $("#where").append('</br>');*/
+      
+      // $("#where").append('<p style="cursor: pointer; color: brown;" value= "' + last[0] +'" id = "' + last[0] +'" >' + 'Click here for more comments from '+data.results.comments[i].display_name + '</p>');
+      // console.log(last[0]);
+      // $("#where").append('</br>');
+
+      /*$("#where").append('<div class = "otherComments"></div>');*/
 
       var $me = $('#starDiv'+unique_id);
 
@@ -558,6 +678,14 @@ $.ajax({
 
 }
 
+
+  /*$.when(ranComments()).done(function(a1){
+      // the code here will be executed when all four ajax requests resolve.
+      // a1, a2, a3 and a4 are lists of length 3 containing the response text,
+      // status, and jqXHR object for each of the four ajax calls respectively.
+      console.log(a1);
+
+  });*/
 var currid;
 
 $(document).ready(function() {
@@ -697,47 +825,47 @@ function searchEvents() {
     }
 
     function pinEvent(idNum) {
-      var image_id = "meta_image1/"+idNum;
-      var image_src = document.getElementById(image_id).getAttribute('src');
-         
-        console.log("This is event number: " + idNum);
-        var url = $('#a_bottom_right-'+idNum).attr("href");
-        var title = $('#feed_text_heading-'+idNum).text();
-        var venue = $('#venueNum'+idNum).text();
+      console.log("This is event number: " + idNum);
+      var url = $('#a_bottom_right-'+idNum).attr("href");
+      var title = $('#feed_text_heading-'+idNum).text();
+      var venue = $('#venueNum'+idNum).text();
+      if(!(title in pinnedEvents)) {
+        
+      
 
-        if(!(title in pinnedEvents)) {
+      var row1Tag = document.createElement("tr");
+      var col1Tag = document.createElement("td");
 
-            document.getElementById(image_id).setAttribute('src',icon_loc+"pin-red.png");    
-            var row1Tag = document.createElement("tr");
-            var col1Tag = document.createElement("td");
+      col1Tag.setAttribute('class', "td-heading");
+      //var eventData = "<p><b><a href=\""+url+">" + title + "</a></b></p><p>" + venue + "</p>";
+      var eventData = "<p><b><a href=\""+url+"\">" + title + "</a></b></p><p>" + venue + "</p>";
+      col1Tag.innerHTML = eventData;
+      row1Tag.setAttribute('id', "Event" +idNum);
+      row1Tag.appendChild(col1Tag);
+      $("#pinnedEventsTable").append(row1Tag);
+      pinnedEvents[title] = eventData;
+      var previous_pinned = store.get('pinnedEvents');
+      pinnedEvents = $.extend(previous_pinned, pinnedEvents); 
+      store.set('pinnedEvents', pinnedEvents);
 
-            col1Tag.setAttribute('class', "td-heading");
-            //var eventData = "<p><b><a href=\""+url+">" + title + "</a></b></p><p>" + venue + "</p>";
-            var eventData = "<p><b><a href=\""+url+"\">" + title + "</a></b></p><p>" + venue + "</p>";
-            col1Tag.innerHTML = eventData;
-            row1Tag.setAttribute('id', "Event" +idNum);
-            row1Tag.appendChild(col1Tag);
-            $("#pinnedEventsTable").append(row1Tag);
-            pinnedEvents[title] = eventData;
-            var previous_pinned = store.get('pinnedEvents');
-            pinnedEvents = $.extend(previous_pinned, pinnedEvents); 
-            store.set('pinnedEvents', pinnedEvents);
+      }
 
-            }
-
-            else {
-              document.getElementById(image_id).setAttribute('src',icon_loc+"pin-grey.png");  
-              var child = document.getElementById("Event"+idNum);
-              child.parentNode.removeChild(child);
-              delete pinnedEvents[title];
-              var previous_pinned = store.get('pinnedEvents');
-              delete previous_pinned[title];
-              pinnedEvents = $.extend(previous_pinned, pinnedEvents); 
-              store.set('pinnedEvents', pinnedEvents);
-            }
-
+      else {
+        var child = document.getElementById("Event"+idNum);
+        child.parentNode.removeChild(child);
+        delete pinnedEvents[title];
+        var previous_pinned = store.get('pinnedEvents');
+        delete previous_pinned[title];
+        pinnedEvents = $.extend(previous_pinned, pinnedEvents); 
+        store.set('pinnedEvents', pinnedEvents);
+      }
+      
+      //
     }
 
 /*$("#advanced-options").click(function() {
     makeVisible();
 });*/
+
+
+
